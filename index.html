@@ -2,7 +2,7 @@
 <html lang="pt-BR" class="h-full">
 <head>
     <meta charset="UTF-8">
-  co  <meta name="viewport" ntent="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title id="pageTitle">Facil Agenda | Agendamento & Serviços</title>
 
     <!-- META TAGS DE COMPARTILHAMENTO (OPEN GRAPH / WHATSAPP) -->
@@ -12,6 +12,15 @@
     <meta property="og:image" content="https://placehold.co/1200x630/6c429c/ffffff?text=Facil+Agenda">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+
+    <!-- PWA & MOBILE META TAGS -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#6c429c">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Facil Agenda">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
     <!-- Google Fonts & Font Awesome Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -152,6 +161,27 @@
 
     <!-- MAIN APP CONTENT -->
     <main class="max-w-md mx-auto px-4 space-y-5">
+        <!-- PWA INSTALL BANNER (APARECE QUANDO O NAVEGADOR PERMITE INSTALAÇÃO) -->
+        <div id="pwaInstallBanner" class="hidden p-3.5 rounded-2xl bg-gradient-to-r from-brand-700 to-brand-500 text-white shadow-lg shadow-brand-700/20 flex items-center justify-between gap-3 animate-fade-in">
+            <div class="flex items-center space-x-3 min-w-0">
+                <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shrink-0 text-white text-lg">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                </div>
+                <div class="min-w-0">
+                    <p class="text-xs font-bold leading-tight truncate">Instalar Aplicativo</p>
+                    <p class="text-[10px] text-purple-100/90 leading-tight">Acesse rápido direto da sua tela inicial</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2 shrink-0">
+                <button id="btnInstallPwa" type="button" class="px-3 py-1.5 rounded-xl bg-white text-brand-700 hover:bg-purple-50 text-xs font-bold transition-all active:scale-95 shadow-xs cursor-pointer">
+                    Instalar
+                </button>
+                <button id="btnCloseInstallBanner" type="button" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center cursor-pointer transition-all text-xs" title="Fechar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+        </div>
+
         <!-- HERO PROFILE CARD -->
         <section class="glass-card rounded-3xl p-6 text-center shadow-xl shadow-brand-700/5 relative overflow-hidden">
             <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-brand-400 via-brand-600 to-brand-800"></div>
@@ -1067,6 +1097,10 @@
             modalWhatsAppBtnText: document.getElementById('modalWhatsAppBtnText'),
             btnCopyMessageModal: document.getElementById('btnCopyMessageModal'),
             btnCloseSuccessModal: document.getElementById('btnCloseSuccessModal'),
+            // PWA Install Banner
+            pwaInstallBanner: document.getElementById('pwaInstallBanner'),
+            btnInstallPwa: document.getElementById('btnInstallPwa'),
+            btnCloseInstallBanner: document.getElementById('btnCloseInstallBanner'),
             // Admin Modal
             adminModal: document.getElementById('adminModal'),
             btnOpenAdmin: document.getElementById('btnOpenAdmin'),
@@ -2012,6 +2046,60 @@
         // Initialize Theme & UI
         applyThemePalette(appState.activePaletteKey);
         renderUI();
+
+        // --- PWA SERVICE WORKER & BROWSER INSTALLATION ---
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then((reg) => {
+                        console.log('PWA Service Worker ativo com escopo:', reg.scope);
+                    })
+                    .catch((err) => {
+                        console.warn('Erro ao registrar Service Worker:', err);
+                    });
+            });
+        }
+
+        let deferredInstallPrompt = null;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredInstallPrompt = e;
+            if (elements.pwaInstallBanner && !sessionStorage.getItem('pwa_banner_closed')) {
+                elements.pwaInstallBanner.classList.remove('hidden');
+            }
+        });
+
+        if (elements.btnInstallPwa) {
+            elements.btnInstallPwa.addEventListener('click', async () => {
+                if (!deferredInstallPrompt) return;
+                deferredInstallPrompt.prompt();
+                const { outcome } = await deferredInstallPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    showToast('🎉 Aplicativo instalado com sucesso!');
+                }
+                deferredInstallPrompt = null;
+                if (elements.pwaInstallBanner) {
+                    elements.pwaInstallBanner.classList.add('hidden');
+                }
+            });
+        }
+
+        if (elements.btnCloseInstallBanner) {
+            elements.btnCloseInstallBanner.addEventListener('click', () => {
+                if (elements.pwaInstallBanner) {
+                    elements.pwaInstallBanner.classList.add('hidden');
+                }
+                sessionStorage.setItem('pwa_banner_closed', 'true');
+            });
+        }
+
+        window.addEventListener('appinstalled', () => {
+            if (elements.pwaInstallBanner) {
+                elements.pwaInstallBanner.classList.add('hidden');
+            }
+            deferredInstallPrompt = null;
+            showToast('Studio Tayssa instalado na sua tela inicial!');
+        });
     </script>
 </body>
 </html>
