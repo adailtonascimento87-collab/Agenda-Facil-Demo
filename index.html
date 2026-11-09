@@ -26,6 +26,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+    <!-- Firebase SDKs (Compat v10 para Web / GitHub Pages) -->
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -702,6 +707,43 @@
 
     <!-- JAVASCRIPT PRINCIPAL AUTÔNOMO -->
     <script>
+        // ==========================================
+        // CONFIGURAÇÃO E INICIALIZAÇÃO DO FIREBASE
+        // PROJETO: agenda-facil-adm
+        // ==========================================
+        const firebaseConfig = {
+          apiKey: "AIzaSyCxeQxcd5ZfkPb0HjlPaioZgnMrBlp3RlY",
+          authDomain: "agenda-facil-adm.firebaseapp.com",
+          projectId: "agenda-facil-adm",
+          storageBucket: "agenda-facil-adm.firebasestorage.app",
+          messagingSenderId: "749294467467",
+          appId: "1:749294467467:web:08f5528a3885851ec1178e"
+        };
+
+        // Inicialização do Firebase e serviços
+        let firebaseApp = null;
+        let firebaseAuth = null;
+        let firebaseDb = null;
+
+        try {
+            if (typeof firebase !== 'undefined') {
+                firebaseApp = !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app();
+                firebaseAuth = firebase.auth();
+                firebaseDb = firebase.firestore();
+                console.log("Firebase agenda-facil-adm inicializado com sucesso!");
+            } else {
+                console.warn("SDK do Firebase não detectado.");
+            }
+        } catch (error) {
+            console.error("Erro ao inicializar Firebase:", error);
+        }
+
+        // Disponibiliza as instâncias no escopo global/window
+        window.firebaseConfig = firebaseConfig;
+        window.firebaseApp = firebaseApp;
+        window.firebaseAuth = firebaseAuth;
+        window.firebaseDb = firebaseDb;
+
         // --- PRESET PALETTES DEFINITION ---
         const PALETTES = {
             lilas: {
