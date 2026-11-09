@@ -744,6 +744,114 @@
         window.firebaseAuth = firebaseAuth;
         window.firebaseDb = firebaseDb;
 
+        // ========================================================
+        // PERSISTÊNCIA EM NUVEM NO CLOUD FIRESTORE ('agendamentos')
+        // PROJETO: agenda-facil-adm
+        // ========================================================
+        async function salvarAgendamentoFirestore(booking) {
+            if (!firebaseDb) {
+                console.warn("[Firestore] Banco de dados não inicializado.");
+                return null;
+            }
+            try {
+                const docId = String(booking.id || Date.now());
+                const docRef = firebaseDb.collection('agendamentos').doc(docId);
+                const payload = {
+                    id: docId,
+                    clientName: booking.clientName || '',
+                    serviceName: booking.serviceName || '',
+                    date: booking.date || '',
+                    timeSlot: booking.timeSlot || '',
+                    notes: booking.notes || '',
+                    createdAt: booking.createdAt || new Date().toISOString(),
+                    status: booking.status || 'agendado'
+                };
+                await docRef.set(payload, { merge: true });
+                console.log("[Firestore] Agendamento gravado na coleção 'agendamentos' (agenda-facil-adm):", docId, payload);
+                return docId;
+            } catch (error) {
+                console.error("[Firestore] Erro ao salvar agendamento:", error);
+                return null;
+            }
+        }
+
+        async function atualizarStatusAgendamentoFirestore(bookingId, novoStatus) {
+            if (!firebaseDb) return;
+            try {
+                const docRef = firebaseDb.collection('agendamentos').doc(String(bookingId));
+                await docRef.set({ status: novoStatus }, { merge: true });
+                console.log("[Firestore] Status do agendamento atualizado para:", novoStatus, "ID:", bookingId);
+            } catch (error) {
+                console.error("[Firestore] Erro ao atualizar status no Firestore:", error);
+            }
+        }
+
+        function sincronizarAgendamentosFirestore() {
+            if (!firebaseDb) return;
+            try {
+                firebaseDb.collection('agendamentos').onSnapshot((snapshot) => {
+                    let alterou = false;
+                    snapshot.forEach((doc) => {
+                        const data = doc.data();
+                        const bId = data.id || doc.id;
+
+                        const idx = appState.bookings.findIndex(b => String(b.id) === String(bId));
+                        if (idx >= 0) {
+                            if (appState.bookings[idx].status !== data.status) {
+                                appState.bookings[idx].status = data.status;
+                                alterou = true;
+                            }
+                        } else {
+                            appState.bookings.unshift({
+                                id: bId,
+                                clientName: data.clientName || '',
+                                serviceName: data.serviceName || '',
+                                date: data.date || '',
+                                timeSlot: data.timeSlot || '',
+                                notes: data.notes || '',
+                                createdAt: data.createdAt || new Date().toISOString(),
+                                status: data.status || 'agendado'
+                            });
+                            alterou = true;
+                        }
+
+                        // Sincroniza horários bloqueados na agenda com o banco
+                        if (data.status === 'agendado' && data.date && data.timeSlot) {
+                            if (!appState.blockedSlots[data.date]) {
+                                appState.blockedSlots[data.date] = [];
+                            }
+                            if (!appState.blockedSlots[data.date].includes(data.timeSlot)) {
+                                appState.blockedSlots[data.date].push(data.timeSlot);
+                                appState.blockedSlots[data.date].sort();
+                                alterou = true;
+                            }
+                        } else if (data.status === 'cancelado' && data.date && data.timeSlot) {
+                            const temOutroAtivo = appState.bookings.some(b => b.date === data.date && b.timeSlot === data.timeSlot && b.status === 'agendado' && String(b.id) !== String(bId));
+                            if (!temOutroAtivo && appState.blockedSlots[data.date]) {
+                                if (appState.blockedSlots[data.date].includes(data.timeSlot)) {
+                                    appState.blockedSlots[data.date] = appState.blockedSlots[data.date].filter(s => s !== data.timeSlot);
+                                    if (appState.blockedSlots[data.date].length === 0) {
+                                        delete appState.blockedSlots[data.date];
+                                    }
+                                    alterou = true;
+                                }
+                            }
+                        }
+                    });
+
+                    if (alterou) {
+                        localStorage.setItem('studio_tayssa_data', JSON.stringify(appState));
+                        renderTimeSlots();
+                        renderAdminLists();
+                    }
+                }, (error) => {
+                    console.error("[Firestore] Erro ao sincronizar agendamentos:", error);
+                });
+            } catch (err) {
+                console.error("[Firestore] Erro ao escutar agendamentos:", err);
+            }
+        }
+
         // --- PRESET PALETTES DEFINITION ---
         const PALETTES = {
             lilas: {
@@ -1521,6 +1629,9 @@
             };
             appState.bookings.unshift(newBooking);
 
+            // Salva na coleção 'agendamentos' do Cloud Firestore (agenda-facil-adm)
+            salvarAgendamentoFirestore(newBooking);
+
             // Format Brazilian Date Display (DD/MM/YYYY)
             const formattedDate = formatDateBR(dateVal);
 
@@ -1906,6 +2017,7 @@
                 appState.bookings.forEach(b => {
                     if (b.date === date && b.timeSlot === slot && b.status === 'agendado') {
                         b.status = 'cancelado';
+                        atualizarStatusAgendamentoFirestore(b.id, 'cancelado');
                     }
                 });
             }
@@ -1924,6 +2036,7 @@
                             delete appState.blockedSlots[booking.date];
                         }
                     }
+                    atualizarStatusAgendamentoFirestore(booking.id, 'cancelado');
                 }
                 saveState();
                 showToast("Agendamento cancelado e horário liberado!");
@@ -2063,6 +2176,7 @@
         // Initialize Theme & UI
         applyThemePalette(appState.activePaletteKey);
         renderUI();
+        sincronizarAgendamentosFirestore();
     </script>
 </body>
 </html>
