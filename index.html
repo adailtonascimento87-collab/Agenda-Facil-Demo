@@ -712,14 +712,23 @@
         // CONFIGURAÇÃO E INICIALIZAÇÃO DO FIREBASE
         // PROJETO: agenda-facil-adm
         // ==========================================
-        const firebaseConfig = {
-          apiKey: "AIzaSyCxeQxcd5ZfkPb0HjlPaioZgnMrBlp3RlY",
-          authDomain: "agenda-facil-adm.firebaseapp.com",
-          projectId: "agenda-facil-adm",
-          storageBucket: "agenda-facil-adm.firebasestorage.app",
-          messagingSenderId: "749294467467",
-          appId: "1:749294467467:web:08f5528a3885851ec1178e"
-        };
+        // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCxeQxcd5ZfkPb0HjlPaioZgnMrBlp3RlY",
+  authDomain: "agenda-facil-adm.firebaseapp.com",
+  projectId: "agenda-facil-adm",
+  storageBucket: "agenda-facil-adm.firebasestorage.app",
+  messagingSenderId: "749294467467",
+  appId: "1:749294467467:web:08f5528a3885851ec1178e"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
 
         // Inicialização do Firebase e serviços
         let firebaseApp = null;
