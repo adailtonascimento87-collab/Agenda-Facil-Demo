@@ -758,6 +758,172 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
         window.firebaseDb = firebaseDb;
 
         // ========================================================
+        // IDENTIFICADOR DINÂMICO DO CLIENTE PELA URL (?cliente=slug)
+        // ========================================================
+        function getClienteDocId() {
+            try {
+                const raw = new URLSearchParams(window.location.search).get('cliente');
+                if (!raw) return 'padrao';
+                const normalized = String(raw)
+                    .trim()
+                    .toLowerCase()
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
+                    .replace(/[^a-z0-9-]+/g, '-')
+                    .replace(/-+/g, '-')
+                    .replace(/^-+|-+$/g, '');
+                return normalized || 'padrao';
+            } catch (err) {
+                console.warn("[Config] Erro ao ler parâmetro cliente da URL:", err);
+                return 'padrao';
+            }
+        }
+
+        const CLIENTE_DOC_ID = getClienteDocId();
+        const CLIENTE_STORAGE_KEY = `studio_tayssa_data_${CLIENTE_DOC_ID}`;
+
+        function saveLocalCache(stateObj) {
+            try {
+                const serialized = JSON.stringify(stateObj);
+                localStorage.setItem(CLIENTE_STORAGE_KEY, serialized);
+                localStorage.setItem('studio_tayssa_data', serialized);
+                localStorage.setItem('studio_tayssa_cliente_id', CLIENTE_DOC_ID);
+            } catch (err) {
+                console.warn("[Cache] Erro ao salvar no localStorage:", err);
+            }
+        }
+
+        // ========================================================
+        // PERSISTÊNCIA EM NUVEM NO CLOUD FIRESTORE ('configuracoes')
+        // PROJETO: agenda-facil-adm
+        // ========================================================
+        async function salvarConfiguracaoFirestore(stateObj) {
+            if (!firebaseDb) {
+                console.warn("[Firestore] Banco de dados não inicializado para salvar configurações.");
+                return false;
+            }
+            try {
+                const docId = getClienteDocId();
+                const docRef = firebaseDb.collection('configuracoes').doc(docId);
+                const payload = {
+                    studioName: stateObj.studioName || DEFAULT_DATA.studioName,
+                    studioTagline: stateObj.studioTagline !== undefined ? stateObj.studioTagline : DEFAULT_DATA.studioTagline,
+                    whatsappNumber: stateObj.whatsappNumber || DEFAULT_DATA.whatsappNumber,
+                    formattedPhone: stateObj.formattedPhone || DEFAULT_DATA.formattedPhone,
+                    pixKey: stateObj.pixKey !== undefined ? stateObj.pixKey : DEFAULT_DATA.pixKey,
+                    depositAmount: stateObj.depositAmount !== undefined ? stateObj.depositAmount : DEFAULT_DATA.depositAmount,
+                    ctaTitle: stateObj.ctaTitle || DEFAULT_DATA.ctaTitle,
+                    ctaSubtitle: stateObj.ctaSubtitle || DEFAULT_DATA.ctaSubtitle,
+                    footerText: stateObj.footerText || DEFAULT_DATA.footerText,
+                    logoUrl: stateObj.logoUrl || '',
+                    activePaletteKey: stateObj.activePaletteKey || DEFAULT_DATA.activePaletteKey,
+                    adminPassword: stateObj.adminPassword || DEFAULT_DATA.adminPassword,
+                    timeSlots: Array.isArray(stateObj.timeSlots) ? stateObj.timeSlots : DEFAULT_DATA.timeSlots,
+                    services: Array.isArray(stateObj.services) ? stateObj.services : DEFAULT_DATA.services,
+                    rules: Array.isArray(stateObj.rules) ? stateObj.rules : DEFAULT_DATA.rules,
+                    blockedSlots: (stateObj.blockedSlots && typeof stateObj.blockedSlots === 'object' && !Array.isArray(stateObj.blockedSlots))
+                        ? stateObj.blockedSlots
+                        : {},
+                    updatedAt: new Date().toISOString()
+                };
+                await docRef.set(payload, { merge: true });
+                await docRef.update({ blockedSlots: payload.blockedSlots });
+                console.log("[Firestore] Configurações salvas na coleção 'configuracoes':", docId);
+                return true;
+            } catch (error) {
+                console.error("[Firestore] Erro ao salvar configurações:", error);
+                return false;
+            }
+        }
+
+        function sincronizarConfiguracaoFirestore() {
+            if (!firebaseDb) return;
+            try {
+                const docId = getClienteDocId();
+                firebaseDb.collection('configuracoes').doc(docId).onSnapshot((doc) => {
+                    if (!doc.exists) {
+                        console.log("[Firestore] Documento de configuração ainda não existe para o cliente:", docId);
+                        return;
+                    }
+
+                    const remote = doc.data() || {};
+                    const loadedServices = Array.isArray(remote.services)
+                        ? remote.services.map(item => {
+                            const s = { ...item };
+                            if (!s.imageUrl) {
+                                const def = DEFAULT_DATA.services.find(d => d.id === s.id || d.name === s.name);
+                                s.imageUrl = def ? def.imageUrl : DEFAULT_SERVICE_IMG;
+                            }
+                            return s;
+                        })
+                        : JSON.parse(JSON.stringify(DEFAULT_DATA.services));
+
+                    const loadedRules = Array.isArray(remote.rules)
+                        ? remote.rules.map(r => ({ ...r }))
+                        : JSON.parse(JSON.stringify(DEFAULT_DATA.rules));
+
+                    const loadedTimeSlots = (Array.isArray(remote.timeSlots) && remote.timeSlots.length > 0)
+                        ? [...remote.timeSlots]
+                        : [...DEFAULT_DATA.timeSlots];
+
+                    const loadedBlockedSlots = {};
+                    if (remote.blockedSlots && typeof remote.blockedSlots === 'object' && !Array.isArray(remote.blockedSlots)) {
+                        Object.keys(remote.blockedSlots).forEach(dateKey => {
+                            if (Array.isArray(remote.blockedSlots[dateKey])) {
+                                loadedBlockedSlots[dateKey] = [...remote.blockedSlots[dateKey]];
+                            }
+                        });
+                    }
+
+                    if (appState && Array.isArray(appState.bookings)) {
+                        appState.bookings.forEach(b => {
+                            if (b.status === 'agendado' && b.date && b.timeSlot) {
+                                if (!loadedBlockedSlots[b.date]) {
+                                    loadedBlockedSlots[b.date] = [];
+                                }
+                                if (!loadedBlockedSlots[b.date].includes(b.timeSlot)) {
+                                    loadedBlockedSlots[b.date].push(b.timeSlot);
+                                    loadedBlockedSlots[b.date].sort();
+                                }
+                            }
+                        });
+                    }
+
+                    appState = {
+                        ...DEFAULT_DATA,
+                        ...appState,
+                        ...remote,
+                        studioName: remote.studioName || DEFAULT_DATA.studioName,
+                        studioTagline: remote.studioTagline !== undefined ? remote.studioTagline : DEFAULT_DATA.studioTagline,
+                        whatsappNumber: remote.whatsappNumber || DEFAULT_DATA.whatsappNumber,
+                        formattedPhone: remote.formattedPhone || DEFAULT_DATA.formattedPhone,
+                        pixKey: remote.pixKey !== undefined ? remote.pixKey : DEFAULT_DATA.pixKey,
+                        depositAmount: remote.depositAmount !== undefined ? remote.depositAmount : DEFAULT_DATA.depositAmount,
+                        ctaTitle: remote.ctaTitle || DEFAULT_DATA.ctaTitle,
+                        ctaSubtitle: remote.ctaSubtitle || DEFAULT_DATA.ctaSubtitle,
+                        footerText: remote.footerText || DEFAULT_DATA.footerText,
+                        logoUrl: remote.logoUrl !== undefined ? remote.logoUrl : DEFAULT_DATA.logoUrl,
+                        activePaletteKey: remote.activePaletteKey || DEFAULT_DATA.activePaletteKey,
+                        adminPassword: remote.adminPassword || DEFAULT_DATA.adminPassword,
+                        timeSlots: loadedTimeSlots,
+                        services: loadedServices,
+                        rules: loadedRules,
+                        blockedSlots: loadedBlockedSlots,
+                        bookings: (appState && Array.isArray(appState.bookings)) ? appState.bookings : JSON.parse(JSON.stringify(DEFAULT_DATA.bookings))
+                    };
+
+                    saveLocalCache(appState);
+                    applyThemePalette(appState.activePaletteKey);
+                    renderUI();
+                }, (error) => {
+                    console.error("[Firestore] Erro ao sincronizar configurações:", error);
+                });
+            } catch (err) {
+                console.error("[Firestore] Erro ao escutar configurações:", err);
+            }
+        }
+
+        // ========================================================
         // PERSISTÊNCIA EM NUVEM NO CLOUD FIRESTORE ('agendamentos')
         // PROJETO: agenda-facil-adm
         // ========================================================
@@ -771,6 +937,7 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
                 const docRef = firebaseDb.collection('agendamentos').doc(docId);
                 const payload = {
                     id: docId,
+                    clienteId: getClienteDocId(),
                     clientName: booking.clientName || '',
                     serviceName: booking.serviceName || '',
                     date: booking.date || '',
@@ -802,10 +969,13 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
         function sincronizarAgendamentosFirestore() {
             if (!firebaseDb) return;
             try {
+                const currentClienteId = getClienteDocId();
                 firebaseDb.collection('agendamentos').onSnapshot((snapshot) => {
                     let alterou = false;
                     snapshot.forEach((doc) => {
                         const data = doc.data();
+                        const docClienteId = data.clienteId || 'padrao';
+                        if (docClienteId !== currentClienteId) return;
                         const bId = data.id || doc.id;
 
                         const idx = appState.bookings.findIndex(b => String(b.id) === String(bId));
@@ -853,7 +1023,7 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
                     });
 
                     if (alterou) {
-                        localStorage.setItem('studio_tayssa_data', JSON.stringify(appState));
+                        saveLocalCache(appState);
                         renderTimeSlots();
                         renderAdminLists();
                     }
@@ -1112,10 +1282,14 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
             return !isNaN(val) && val > 0;
         }
 
-        // Application State loaded from localStorage or default
+        // Application State loaded from localStorage (isolated per client) or default
         let appState = null;
         try {
-            const saved = localStorage.getItem('studio_tayssa_data');
+            const savedClienteId = localStorage.getItem('studio_tayssa_cliente_id');
+            let saved = localStorage.getItem(CLIENTE_STORAGE_KEY);
+            if (!saved && ((!savedClienteId && CLIENTE_DOC_ID === 'padrao') || savedClienteId === CLIENTE_DOC_ID)) {
+                saved = localStorage.getItem('studio_tayssa_data');
+            }
             if (saved) {
                 const parsed = JSON.parse(saved);
                 let loadedServices = (parsed.services && Array.isArray(parsed.services)) ? parsed.services : DEFAULT_DATA.services;
@@ -1174,10 +1348,13 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
             root.style.setProperty(`--grad-end`, p.gradEnd);
         }
 
-        function saveState() {
-            localStorage.setItem('studio_tayssa_data', JSON.stringify(appState));
+        function saveState(skipFirestore = false) {
+            saveLocalCache(appState);
             applyThemePalette(appState.activePaletteKey);
             renderUI();
+            if (!skipFirestore) {
+                salvarConfiguracaoFirestore(appState);
+            }
         }
 
         // Toast Helper
@@ -2181,7 +2358,8 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
         elements.btnRestoreDefaults.addEventListener('click', () => {
             if (confirm("Tem certeza que deseja restaurar as configurações padrão?")) {
                 appState = JSON.parse(JSON.stringify(DEFAULT_DATA));
-                saveState();
+                saveState(true);
+                salvarConfiguracaoFirestore(appState);
                 showToast("Configurações restauradas com sucesso!");
             }
         });
@@ -2189,6 +2367,7 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
         // Initialize Theme & UI
         applyThemePalette(appState.activePaletteKey);
         renderUI();
+        sincronizarConfiguracaoFirestore();
         sincronizarAgendamentosFirestore();
     </script>
 </body>
