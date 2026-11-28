@@ -6,9 +6,10 @@
     <title id="pageTitle">Facil Agenda | Agendamento & Serviços</title>
 
     <!-- META TAGS DE COMPARTILHAMENTO (OPEN GRAPH / WHATSAPP) -->
+    <meta name="description" content="Agende seu horário online de forma simples e rápida. Organize seus atendimentos com mais facilidade pelo Agenda Fácil.">
     <meta property="og:type" content="website">
     <meta property="og:title" content="AGENDE SEU HORÁRIO">
-    <meta property="og:description" content="Studio Nails Design. Especialista em Nail Design, Alongamento e Estética das Mãos e Pés. Realçando sua beleza com sofisticação.">
+    <meta property="og:description" content="Agende seu horário online de forma simples e rápida. Organize seus atendimentos com mais facilidade pelo Agenda Fácil.">
     <meta property="og:url" content="https://agenda-facil-adm.netlify.app/">
     <meta property="og:image" content="https://placehold.co/1200x630/6c429c/ffffff?text=Facil+Agenda">
     <meta property="og:image:width" content="1200">
@@ -36,7 +37,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -90,11 +90,6 @@
             border: 1px solid rgba(255, 255, 255, 0.6);
         }
 
-        .dark .glass-card {
-            background: rgba(26, 20, 38, 0.94);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
         .tab-active {
             background: linear-gradient(135deg, var(--grad-start) 0%, var(--grad-end) 100%) !important;
             color: #ffffff !important;
@@ -114,8 +109,8 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; translate: 0 6px; }
+            to { opacity: 1; translate: 0 0; }
         }
 
         .animate-fade-in {
@@ -127,35 +122,30 @@
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-slate-50 via-purple-50/40 to-pink-50/30 dark:from-slate-950 dark:via-slate-900 dark:to-purple-950/40 text-slate-800 dark:text-slate-100 min-h-full transition-colors duration-300 pb-12">
+<body class="bg-gradient-to-br from-slate-50 via-purple-50/40 to-pink-50/30 text-slate-800 min-h-full transition-colors duration-300 pb-12">
 
     <!-- TOAST NOTIFICATION -->
-    <div id="toastNotification" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-2xl bg-slate-900/90 dark:bg-white/95 text-white dark:text-slate-900 text-xs font-semibold shadow-xl backdrop-blur-md flex items-center space-x-2 animate-fade-in border border-white/10 hidden max-w-sm">
+    <div id="toastNotification" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-2xl bg-slate-900/90 text-white text-xs font-semibold shadow-xl backdrop-blur-md flex items-center space-x-2 animate-fade-in border border-white/10 hidden max-w-sm">
         <i class="fa-solid fa-sparkles text-amber-400"></i>
         <span id="toastText">Ação realizada!</span>
     </div>
 
     <!-- TOP NAVIGATION BAR -->
-    <nav class="sticky top-0 z-40 w-full glass-card border-b border-purple-100/50 dark:border-slate-800/80 px-4 py-3 mb-6 shadow-sm">
+    <nav class="sticky top-0 z-40 w-full glass-card border-b border-purple-100/50 px-4 py-3 mb-6 shadow-sm">
         <div class="max-w-md mx-auto flex items-center justify-between">
             <div class="flex items-center space-x-3">
                 <div id="navLogoContainer" class="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-700 to-brand-500 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-brand-700/20 overflow-hidden shrink-0">
-                    <span id="navLogoText">TL</span>
+                    <span id="navLogoText">AF</span>
                     <img id="navLogoImg" class="w-full h-full object-cover hidden" alt="Logo">
                 </div>
                 <div>
-                    <h1 id="navTitle" class="font-bold text-slate-900 dark:text-white text-base leading-tight truncate max-w-[180px]">Studio Tayssa Lopes</h1>
-                    <p id="navSubTitle" class="text-xs text-brand-700 dark:text-brand-300 font-medium truncate max-w-[180px]">Cílios & Sobrancelhas</p>
+                    <h1 id="navTitle" class="font-bold text-slate-900 text-base leading-tight truncate max-w-[180px]">Agenda Facil</h1>
+                    <p id="navSubTitle" class="text-xs text-brand-700 font-medium truncate max-w-[180px]">Agendamento Online</p>
                 </div>
             </div>
             
             <div class="flex items-center space-x-2">
-                <button id="themeToggle" type="button" aria-label="Alternar Tema" class="w-9 h-9 rounded-xl bg-purple-100/60 dark:bg-slate-800 text-brand-700 dark:text-brand-300 flex items-center justify-center transition-all active:scale-95 cursor-pointer">
-                    <i class="fa-solid fa-moon text-sm dark:hidden"></i>
-                    <i class="fa-solid fa-sun text-sm hidden dark:block"></i>
-                </button>
-                
-                <button id="btnOpenAdmin" type="button" class="px-3 py-1.5 rounded-xl bg-purple-100/60 dark:bg-slate-800 text-brand-700 dark:text-brand-300 text-xs font-semibold flex items-center space-x-1.5 transition-all active:scale-95 cursor-pointer">
+                <button id="btnOpenAdmin" type="button" class="px-3 py-1.5 rounded-xl bg-purple-100/60 text-brand-700 text-xs font-semibold flex items-center space-x-1.5 transition-all active:scale-95 cursor-pointer">
                     <i class="fa-solid fa-gear"></i>
                     <span>Gestão</span>
                 </button>
@@ -171,23 +161,23 @@
             <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-brand-400 via-brand-600 to-brand-800"></div>
             
             <div class="relative w-24 h-24 mx-auto mb-3">
-                <div id="heroLogoContainer" class="w-full h-full rounded-full bg-gradient-to-tr from-brand-700 to-brand-500 text-white flex items-center justify-center text-2xl font-black shadow-lg shadow-brand-700/30 border-4 border-white dark:border-slate-900 overflow-hidden">
+                <div id="heroLogoContainer" class="w-full h-full rounded-full bg-gradient-to-tr from-brand-700 to-brand-500 text-white flex items-center justify-center text-2xl font-black shadow-lg shadow-brand-700/30 border-4 border-white overflow-hidden">
                     <span id="heroLogoText">TL</span>
                     <img id="heroLogoImg" class="w-full h-full object-cover hidden" alt="Logo Principal">
                 </div>
-                <span class="absolute bottom-1 right-1 w-5 h-5 bg-emerald-500 border-2 border-white dark:border-slate-900 rounded-full" title="Atendendo Hoje"></span>
+                <span class="absolute bottom-1 right-1 w-5 h-5 bg-emerald-500 border-2 border-white rounded-full" title="Atendendo Hoje"></span>
             </div>
 
-            <h2 id="heroTitle" class="text-xl font-bold text-slate-900 dark:text-white">Studio Tayssa Lopes</h2>
-            <p id="heroSubTitle" class="text-xs text-slate-500 dark:text-slate-400 mt-1 mb-4">Especialista em Cílios & Sobrancelhas ✨</p>
+            <h2 id="heroTitle" class="text-xl font-bold text-slate-900">Agenda Facil</h2>
+            <p id="heroSubTitle" class="text-xs text-slate-500 mt-1 mb-4">Agendamento online automatico ✨</p>
 
             <div class="flex items-center justify-center gap-2">
-                <a id="whatsappBtnHeader" href="#" target="_blank" rel="noopener noreferrer" class="flex-1 py-2.5 px-3 rounded-xl bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800/50 text-xs font-bold flex items-center justify-center space-x-2 transition-all active:scale-95 shadow-sm">
+                <a id="whatsappBtnHeader" href="#" target="_blank" rel="noopener noreferrer" class="flex-1 py-2.5 px-3 rounded-xl bg-brand-50 text-brand-700 border border-brand-200 text-xs font-bold flex items-center justify-center space-x-2 transition-all active:scale-95 shadow-sm">
                     <i class="fa-brands fa-whatsapp text-sm"></i>
-                    <span id="phoneDisplay">(96) 99117-9212</span>
+                    <span id="phoneDisplay">(96) 999999999</span>
                 </a>
                 
-                <button id="btnCopyPixHeader" type="button" class="py-2.5 px-3 rounded-xl bg-brand-50 dark:bg-brand-950/40 text-brand-700 dark:text-brand-300 border border-brand-200 dark:border-brand-800/50 text-xs font-bold flex items-center justify-center space-x-2 transition-all active:scale-95 shadow-sm cursor-pointer">
+                <button id="btnCopyPixHeader" type="button" class="py-2.5 px-3 rounded-xl bg-brand-50 text-brand-700 border border-brand-200 text-xs font-bold flex items-center justify-center space-x-2 transition-all active:scale-95 shadow-sm cursor-pointer">
                     <i class="fa-solid fa-copy text-sm"></i>
                     <span>Chave PIX</span>
                 </button>
@@ -196,15 +186,15 @@
 
         <!-- NAVIGATION TABS -->
         <section class="glass-card p-1.5 rounded-2xl flex space-x-1 shadow-md shadow-brand-700/5">
-            <button id="tab-btn-valores" type="button" class="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center space-x-2 text-slate-600 dark:text-slate-400 tab-active cursor-pointer">
+            <button id="tab-btn-valores" type="button" class="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center space-x-2 text-slate-600 tab-active cursor-pointer">
                 <i class="fa-solid fa-list"></i>
                 <span>Valores</span>
             </button>
-            <button id="tab-btn-regras" type="button" class="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center space-x-2 text-slate-600 dark:text-slate-400 cursor-pointer">
+            <button id="tab-btn-regras" type="button" class="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center space-x-2 text-slate-600 cursor-pointer">
                 <i class="fa-solid fa-shield-halved"></i>
                 <span>Regras</span>
             </button>
-            <button id="tab-btn-agendar" type="button" class="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center space-x-2 text-slate-600 dark:text-slate-400 cursor-pointer">
+            <button id="tab-btn-agendar" type="button" class="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center space-x-2 text-slate-600 cursor-pointer">
                 <i class="fa-solid fa-calendar-check"></i>
                 <span>Agendar</span>
             </button>
@@ -218,19 +208,19 @@
                         <span id="serviceTableIconContainer" class="w-8 h-8 rounded-xl bg-gradient-to-tr from-brand-700 to-brand-600 text-white flex items-center justify-center text-xs shadow-sm shadow-brand-700/20 shrink-0" style="background: linear-gradient(135deg, var(--color-brand-700, #6c429c), var(--color-brand-600, #7d35a8));">
                             <i class="fa-solid fa-bars text-white text-xs"></i>
                         </span>
-                        <h3 class="font-bold text-slate-900 dark:text-white text-base">Tabela de Serviços</h3>
+                        <h3 class="font-bold text-slate-900 text-base">Tabela de Serviços</h3>
                     </div>
-                    <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-brand-100 dark:bg-brand-900/60 text-brand-700 dark:text-brand-300">Preços Atualizados</span>
+                    <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-brand-100 text-brand-700">Preços Atualizados</span>
                 </div>
 
                 <div class="mb-4">
                     <div class="relative">
                         <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-                        <input type="text" id="serviceSearch" placeholder="Buscar procedimento ou extensão..." class="w-full pl-9 pr-4 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        <input type="text" id="serviceSearch" placeholder="Buscar procedimento ou extensão..." class="w-full pl-9 pr-4 py-2.5 text-xs rounded-xl border border-slate-200 bg-white/70 text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
                     </div>
                 </div>
 
-                <div id="servicesContainer" class="divide-y divide-slate-100 dark:divide-slate-800">
+                <div id="servicesContainer" class="divide-y divide-slate-100">
                 </div>
             </div>
 
@@ -249,22 +239,22 @@
         <section id="tab-regras" class="hidden animate-fade-in space-y-4">
             <div class="glass-card rounded-3xl p-5 shadow-lg shadow-brand-700/5">
                 <div class="flex items-center space-x-2 mb-5">
-                    <span class="w-8 h-8 rounded-xl bg-brand-100 dark:bg-brand-900/50 text-brand-700 dark:text-brand-300 flex items-center justify-center text-sm">📌</span>
-                    <h3 class="font-bold text-slate-900 dark:text-white text-base">Regras de Atendimento</h3>
+                    <span class="w-8 h-8 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center text-sm">📌</span>
+                    <h3 class="font-bold text-slate-900 text-base">Regras de Atendimento</h3>
                 </div>
 
                 <div id="rulesContainer" class="space-y-3.5">
                 </div>
 
-                <div id="sectionPixSinalRules" class="mt-5 p-4 rounded-2xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200/80 dark:border-amber-800/40 text-amber-900 dark:text-amber-200">
+                <div id="sectionPixSinalRules" class="mt-5 p-4 rounded-2xl bg-amber-50/80 border border-amber-200/80 text-amber-900">
                     <div class="flex items-center justify-between mb-2">
                         <div class="flex items-center space-x-2">
-                            <i class="fa-solid fa-qrcode text-amber-600 dark:text-amber-400"></i>
+                            <i class="fa-solid fa-qrcode text-amber-600"></i>
                             <span class="text-xs font-bold">Chave PIX para Sinal (<span class="depositRuleText">R$ 50,00</span>)</span>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between bg-white/80 dark:bg-slate-900/80 p-2.5 rounded-xl border border-amber-200/50 dark:border-amber-800/30">
-                        <span id="pixKeyText" class="text-xs font-mono font-bold text-slate-800 dark:text-slate-200 truncate pr-2">96991179212</span>
+                    <div class="flex items-center justify-between bg-white/80 p-2.5 rounded-xl border border-amber-200/50">
+                        <span id="pixKeyText" class="text-xs font-mono font-bold text-slate-800 truncate pr-2">96999999999</span>
                         <button id="btnCopyPixRules" type="button" class="px-2.5 py-1 rounded-lg bg-amber-500 hover:bg-amber-600 text-white text-[11px] font-bold active:scale-95 transition-all cursor-pointer shrink-0">
                             Copiar
                         </button>
@@ -277,21 +267,21 @@
         <section id="tab-agendar" class="hidden animate-fade-in space-y-4">
             <div class="glass-card rounded-3xl p-5 shadow-lg shadow-brand-700/5">
                 <div class="flex items-center space-x-2 mb-4">
-                    <span class="w-8 h-8 rounded-xl bg-brand-100 dark:bg-brand-900/50 text-brand-700 dark:text-brand-300 flex items-center justify-center text-sm">📅</span>
+                    <span class="w-8 h-8 rounded-xl bg-brand-100 text-brand-700 flex items-center justify-center text-sm">📅</span>
                     <div>
-                        <h3 class="font-bold text-slate-900 dark:text-white text-base">Solicitar Agendamento</h3>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400">O horário escolhido é marcado e reservado automaticamente.</p>
+                        <h3 class="font-bold text-slate-900 text-base">Solicitar Agendamento</h3>
+                        <p class="text-[11px] text-slate-500">O horário escolhido é marcado e reservado automaticamente.</p>
                     </div>
                 </div>
 
                 <form id="bookingForm" class="space-y-4">
                     <div>
-                        <label for="selectService" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Procedimento Desejado:</label>
-                        <select id="selectService" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500 cursor-pointer">
+                        <label for="selectService" class="block text-xs font-bold text-slate-700 mb-1.5">Procedimento Desejado:</label>
+                        <select id="selectService" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 cursor-pointer">
                         </select>
                         <!-- Card com Miniatura da Foto do Procedimento Selecionado -->
-                        <div id="bookingSelectedServiceCard" class="mt-2.5 p-2.5 rounded-2xl bg-purple-50/70 dark:bg-purple-950/30 border border-purple-100 dark:border-purple-900/40 flex items-center space-x-3">
-                            <div class="relative w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-purple-200 dark:border-purple-800/50 shadow-xs cursor-pointer group" onclick="openSelectedServicePhoto()" title="Toque para ver a foto ampliada">
+                        <div id="bookingSelectedServiceCard" class="mt-2.5 p-2.5 rounded-2xl bg-purple-50/70 border border-purple-100 flex items-center space-x-3">
+                            <div class="relative w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-purple-200 shadow-xs cursor-pointer group" onclick="openSelectedServicePhoto()" title="Toque para ver a foto ampliada">
                                 <img id="bookingSelectedServiceImg" src="" alt="Foto do Procedimento" class="w-full h-full object-cover transition-transform group-hover:scale-105" onerror="this.src=SVG_LASH_PLACEHOLDER">
                                 <span class="absolute bottom-0.5 right-0.5 w-4 h-4 rounded-full bg-black/60 text-white flex items-center justify-center text-[8px]">
                                     <i class="fa-solid fa-magnifying-glass-plus"></i>
@@ -299,11 +289,11 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center justify-between">
-                                    <h4 id="bookingSelectedServiceName" class="font-bold text-xs text-slate-900 dark:text-white truncate">Volume Brasileiro</h4>
-                                    <span id="bookingSelectedServicePrice" class="text-xs font-black text-brand-700 dark:text-brand-300 ml-1">R$ 150,00</span>
+                                    <h4 id="bookingSelectedServiceName" class="font-bold text-xs text-slate-900 truncate">Volume Brasileiro</h4>
+                                    <span id="bookingSelectedServicePrice" class="text-xs font-black text-brand-700 ml-1">R$ 150,00</span>
                                 </div>
-                                <p id="bookingSelectedServiceDesc" class="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">Descrição</p>
-                                <span class="text-[9px] text-brand-600 dark:text-brand-400 font-semibold flex items-center space-x-1 mt-1">
+                                <p id="bookingSelectedServiceDesc" class="text-[10px] text-slate-500 line-clamp-1 mt-0.5">Descrição</p>
+                                <span class="text-[9px] text-brand-600 font-semibold flex items-center space-x-1 mt-1">
                                     <i class="fa-solid fa-eye text-[9px]"></i>
                                     <span>Toque na foto para ampliar</span>
                                 </span>
@@ -312,13 +302,13 @@
                     </div>
 
                     <div>
-                        <label for="inputDate" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Data do Atendimento:</label>
-                        <input type="date" id="inputDate" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500 cursor-pointer">
+                        <label for="inputDate" class="block text-xs font-bold text-slate-700 mb-1.5">Data do Atendimento:</label>
+                        <input type="date" id="inputDate" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 cursor-pointer">
                     </div>
 
                     <div>
                         <div class="flex items-center justify-between mb-1.5">
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300">Horários Disponíveis:</label>
+                            <label class="block text-xs font-bold text-slate-700">Horários Disponíveis:</label>
                             <span class="text-[10px] text-rose-500 font-semibold flex items-center space-x-1">
                                 <i class="fa-solid fa-lock text-[10px]"></i>
                                 <span>*Vermelho = Ocupado</span>
@@ -329,13 +319,13 @@
                     </div>
 
                     <div class="pt-2">
-                        <label for="inputName" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Seu Nome Completo:</label>
-                        <input type="text" id="inputName" placeholder="Ex: Maria Silva" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        <label for="inputName" class="block text-xs font-bold text-slate-700 mb-1.5">Seu Nome Completo:</label>
+                        <input type="text" id="inputName" placeholder="Ex: Maria Silva" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
                     </div>
 
                     <div>
-                        <label for="inputNotes" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">Observação (Opcional):</label>
-                        <input type="text" id="inputNotes" placeholder="Ex: Primeira vez / tenho extensão antiga" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        <label for="inputNotes" class="block text-xs font-bold text-slate-700 mb-1.5">Observação (Opcional):</label>
+                        <input type="text" id="inputNotes" placeholder="Ex: Primeira vez / tenho extensão antiga" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
                     </div>
 
                     <button type="submit" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-brand-700 to-brand-500 hover:from-brand-800 hover:to-brand-600 text-white font-bold text-xs shadow-lg shadow-brand-700/30 flex items-center justify-center space-x-2 transition-all active:scale-95 mt-2 cursor-pointer">
@@ -348,48 +338,48 @@
 
         <!-- RODAPÉ -->
         <footer class="text-center pt-4 pb-6">
-            <p id="footerText" class="text-[11px] text-slate-500 dark:text-slate-400 font-medium">© 2026 Studio Tayssa Lopes • Todos os direitos reservados</p>
+            <p id="footerText" class="text-[11px] text-slate-500 font-medium">© 2026 Agenda Facil • Todos os direitos reservados</p>
         </footer>
     </main>
 
     <!-- MODAL DE CONFIRMAÇÃO DE AGENDAMENTO (CLIENTE) -->
     <div id="bookingSuccessModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden animate-fade-in">
-        <div class="glass-card bg-white dark:bg-slate-900 w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4 border border-purple-100 dark:border-slate-800">
+        <div class="glass-card bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4 border border-purple-100">
             <div class="text-center space-y-2">
-                <div class="w-14 h-14 mx-auto rounded-full bg-brand-100 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400 flex items-center justify-center text-2xl shadow-inner">
+                <div class="w-14 h-14 mx-auto rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-2xl shadow-inner">
                     <i class="fa-solid fa-circle-check text-2xl"></i>
                 </div>
-                <h3 class="font-bold text-slate-900 dark:text-white text-base">
+                <h3 class="font-bold text-slate-900 text-base">
                     Horário Marcado com Sucesso!
                 </h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400">
-                    Seu horário foi <strong class="text-brand-600 dark:text-brand-400">reservado e bloqueado automaticamente</strong> na agenda do estúdio.
+                <p class="text-xs text-slate-500">
+                    Seu horário foi <strong class="text-brand-600">reservado e bloqueado automaticamente</strong> na agenda do estúdio.
                 </p>
             </div>
 
-            <div class="p-3.5 rounded-2xl bg-purple-50/60 dark:bg-purple-950/30 border border-purple-100 dark:border-purple-900/40 text-xs space-y-1.5">
+            <div class="p-3.5 rounded-2xl bg-purple-50/60 border border-purple-100 text-xs space-y-1.5">
                 <div class="flex justify-between">
-                    <span class="text-slate-500 dark:text-slate-400">Cliente:</span>
-                    <span id="modalClientName" class="font-bold text-slate-800 dark:text-slate-200">Maria Silva</span>
+                    <span class="text-slate-500">Cliente:</span>
+                    <span id="modalClientName" class="font-bold text-slate-800">Maria Silva</span>
                 </div>
                 <div class="flex justify-between">
-                    <span class="text-slate-500 dark:text-slate-400">Procedimento:</span>
-                    <span id="modalServiceName" class="font-bold text-slate-800 dark:text-slate-200">Volume Brasileiro</span>
+                    <span class="text-slate-500">Procedimento:</span>
+                    <span id="modalServiceName" class="font-bold text-slate-800">Volume Brasileiro</span>
                 </div>
                 <div class="flex justify-between">
-                    <span class="text-slate-500 dark:text-slate-400">Data & Horário:</span>
-                    <span id="modalDateTime" class="font-bold text-brand-700 dark:text-brand-300">20/10/2026 às 10:00</span>
+                    <span class="text-slate-500">Data & Horário:</span>
+                    <span id="modalDateTime" class="font-bold text-brand-700">20/10/2026 às 10:00</span>
                 </div>
-                <div id="modalDepositRow" class="flex justify-between pt-1 border-t border-purple-100 dark:border-purple-900/30">
-                    <span class="text-slate-500 dark:text-slate-400">Sinal para confirmação:</span>
-                    <span id="modalDepositAmount" class="font-bold text-brand-700 dark:text-brand-300">R$ 50,00</span>
+                <div id="modalDepositRow" class="flex justify-between pt-1 border-t border-purple-100">
+                    <span class="text-slate-500">Sinal para confirmação:</span>
+                    <span id="modalDepositAmount" class="font-bold text-brand-700">R$ 50,00</span>
                 </div>
             </div>
 
-            <div id="modalPixContainer" class="p-3 rounded-xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200/60 dark:border-amber-900/40 flex items-center justify-between text-xs">
+            <div id="modalPixContainer" class="p-3 rounded-xl bg-amber-50/80 border border-amber-200/60 flex items-center justify-between text-xs">
                 <div>
-                    <span class="text-[10px] text-amber-700 dark:text-amber-400 font-bold block">Chave PIX:</span>
-                    <span id="modalPixKey" class="font-mono font-bold text-slate-800 dark:text-slate-200">96991179212</span>
+                    <span class="text-[10px] text-amber-700 font-bold block">Chave PIX:</span>
+                    <span id="modalPixKey" class="font-mono font-bold text-slate-800">96999999999</span>
                 </div>
                 <button id="btnCopyPixModal" type="button" class="px-2.5 py-1 rounded-lg bg-amber-500 hover:bg-amber-600 text-white font-bold text-[11px] cursor-pointer active:scale-95">
                     Copiar
@@ -402,12 +392,12 @@
                     <span id="modalWhatsAppBtnText">Enviar Comprovante no WhatsApp</span>
                 </a>
 
-                <button id="btnCopyMessageModal" type="button" class="w-full py-2 px-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs hover:bg-slate-50 dark:hover:bg-slate-800 transition-all flex items-center justify-center space-x-1.5 cursor-pointer">
+                <button id="btnCopyMessageModal" type="button" class="w-full py-2 px-3 rounded-xl border border-slate-200 text-slate-700 font-semibold text-xs hover:bg-slate-50 transition-all flex items-center justify-center space-x-1.5 cursor-pointer">
                     <i class="fa-solid fa-copy text-xs"></i>
                     <span>Copiar Mensagem do Agendamento</span>
                 </button>
 
-                <button id="btnCloseSuccessModal" type="button" class="w-full py-2 text-center text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 cursor-pointer">
+                <button id="btnCloseSuccessModal" type="button" class="w-full py-2 text-center text-xs text-slate-400 hover:text-slate-600 cursor-pointer">
                     Fechar e ver agenda atualizada
                 </button>
             </div>
@@ -416,19 +406,19 @@
 
     <!-- MODAL / LIGHTBOX DE FOTO DO SERVIÇO EM TELA CHEIA -->
     <div id="servicePhotoModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 hidden animate-fade-in" onclick="closePhotoModal(event)">
-        <div class="relative max-w-sm w-full bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-purple-100/30 dark:border-slate-800" onclick="event.stopPropagation()">
+        <div class="relative max-w-sm w-full bg-white rounded-3xl overflow-hidden shadow-2xl border border-purple-100/30" onclick="event.stopPropagation()">
             <button type="button" onclick="closePhotoModal()" class="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white flex items-center justify-center cursor-pointer transition-all active:scale-95 shadow-md">
                 <i class="fa-solid fa-xmark text-sm"></i>
             </button>
-            <div class="w-full aspect-square bg-slate-100 dark:bg-slate-800 overflow-hidden relative">
+            <div class="w-full aspect-square bg-slate-100 overflow-hidden relative">
                 <img id="photoModalImg" src="" alt="Foto do Serviço" class="w-full h-full object-cover">
             </div>
             <div class="p-4 space-y-1.5">
                 <div class="flex items-center justify-between">
-                    <h3 id="photoModalTitle" class="font-bold text-slate-900 dark:text-white text-base">Nome do Serviço</h3>
-                    <span id="photoModalPrice" class="font-black text-brand-700 dark:text-brand-300 text-sm">R$ 0,00</span>
+                    <h3 id="photoModalTitle" class="font-bold text-slate-900 text-base">Nome do Serviço</h3>
+                    <span id="photoModalPrice" class="font-black text-brand-700 text-sm">R$ 0,00</span>
                 </div>
-                <p id="photoModalDesc" class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Descrição do procedimento</p>
+                <p id="photoModalDesc" class="text-xs text-slate-500 leading-relaxed">Descrição do procedimento</p>
                 <div class="pt-2">
                     <button type="button" id="photoModalBtnBook" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-brand-700 to-brand-500 text-white text-xs font-bold shadow-md active:scale-95 transition-all cursor-pointer">
                         Agendar Este Procedimento
@@ -440,25 +430,25 @@
 
     <!-- MODAL DE ADMINISTRAÇÃO -->
     <div id="adminModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 hidden animate-fade-in">
-        <div class="glass-card bg-white dark:bg-slate-900 w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto custom-scrollbar border border-purple-100 dark:border-slate-800">
+        <div class="glass-card bg-white w-full max-w-sm rounded-3xl p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto custom-scrollbar border border-purple-100">
             
-            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
-                <h3 class="font-bold text-slate-900 dark:text-white text-base flex items-center space-x-2">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <h3 class="font-bold text-slate-900 text-base flex items-center space-x-2">
                     <i class="fa-solid fa-gear text-brand-600"></i>
                     <span>Painel da Profissional</span>
                 </h3>
-                <button id="btnCloseAdmin" type="button" class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center justify-center cursor-pointer transition-all">
+                <button id="btnCloseAdmin" type="button" class="w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:text-slate-800 flex items-center justify-center cursor-pointer transition-all">
                     <i class="fa-solid fa-xmark"></i>
                 </button>
             </div>
 
             <!-- LOGIN VIEW -->
             <div id="adminLoginView" class="space-y-3">
-                <p class="text-xs text-slate-500 dark:text-slate-400">Digite a senha para gerenciar serviços, regras e horários da agenda.</p>
+                <p class="text-xs text-slate-500">Digite a senha para gerenciar serviços, regras e horários da agenda.</p>
                 <div>
-                    <label for="adminPass" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Senha de Acesso:</label>
-                    <input type="password" id="adminPass" placeholder="Digite sua senha de acesso" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
-                    <p class="text-[10px] text-slate-400 dark:text-slate-500 mt-1">Dica: Acesso com senha cadastrada ou mestre de suporte.</p>
+                    <label for="adminPass" class="block text-xs font-bold text-slate-700 mb-1">Senha de Acesso:</label>
+                    <input type="password" id="adminPass" placeholder="Digite sua senha de acesso" class="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                    <p class="text-[10px] text-slate-400 mt-1">Dica: Acesso com senha cadastrada ou mestre de suporte.</p>
                 </div>
                 <button id="btnLoginAdmin" type="button" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-brand-700 to-brand-500 text-white text-xs font-bold shadow-md active:scale-95 transition-all cursor-pointer">
                     Entrar no Painel
@@ -467,12 +457,12 @@
 
             <!-- DASHBOARD VIEW -->
             <div id="adminDashboardView" class="hidden space-y-4">
-                <div class="bg-brand-50 dark:bg-brand-950/40 text-brand-800 dark:text-brand-300 p-2.5 rounded-2xl text-xs font-semibold flex items-center justify-between border border-brand-100 dark:border-brand-900/40">
+                <div class="bg-brand-50 text-brand-800 p-2.5 rounded-2xl text-xs font-semibold flex items-center justify-between border border-brand-100">
                     <span class="flex items-center space-x-1.5"><i class="fa-solid fa-circle-check text-brand-500"></i><span>Sessão Ativa</span></span>
-                    <button id="btnLogoutAdmin" type="button" class="text-[11px] underline text-brand-700 dark:text-brand-400 hover:text-brand-900 cursor-pointer">Sair</button>
+                    <button id="btnLogoutAdmin" type="button" class="text-[11px] underline text-brand-700 hover:text-brand-900 cursor-pointer">Sair</button>
                 </div>
 
-                <div class="flex border-b border-slate-100 dark:border-slate-800 text-xs font-bold overflow-x-auto custom-scrollbar space-x-2">
+                <div class="flex border-b border-slate-100 text-xs font-bold overflow-x-auto custom-scrollbar space-x-2">
                     <button id="adminTabBtn-perfil" type="button" class="py-2 px-2 border-b-2 border-brand-500 text-brand-600 whitespace-nowrap cursor-pointer">Perfil</button>
                     <button id="adminTabBtn-servicos" type="button" class="py-2 px-2 border-b-2 border-transparent text-slate-400 whitespace-nowrap cursor-pointer">Serviços</button>
                     <button id="adminTabBtn-regras" type="button" class="py-2 px-2 border-b-2 border-transparent text-slate-400 whitespace-nowrap cursor-pointer">Regras</button>
@@ -483,11 +473,11 @@
                 <!-- PERFIL -->
                 <div id="adminTabSection-perfil" class="space-y-3">
                     <form id="profileConfigForm" class="space-y-3">
-                        <div class="space-y-2 p-3 bg-purple-50/50 dark:bg-purple-950/20 rounded-2xl border border-purple-100 dark:border-purple-900/30">
-                            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300">Logo do Estúdio / Foto de Perfil:</label>
+                        <div class="space-y-2 p-3 bg-purple-50/50 rounded-2xl border border-purple-100">
+                            <label class="block text-xs font-bold text-slate-700">Logo do Estúdio / Foto de Perfil:</label>
 
                             <div class="flex items-center space-x-3 mb-2">
-                                <div id="previewAdminLogo" class="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden flex items-center justify-center font-bold text-brand-700 dark:text-brand-300 text-xs border border-slate-300 dark:border-slate-700">
+                                <div id="previewAdminLogo" class="w-12 h-12 rounded-full bg-slate-200 overflow-hidden flex items-center justify-center font-bold text-brand-700 text-xs border border-slate-300">
                                     <span>Logo</span>
                                 </div>
                                 <button id="btnRemoveLogo" type="button" class="text-[11px] text-rose-500 hover:text-rose-700 font-semibold underline cursor-pointer">
@@ -496,7 +486,7 @@
                             </div>
 
                             <div>
-                                <label for="cfgLogoFile" class="cursor-pointer w-full py-2 px-3 rounded-xl bg-brand-100 dark:bg-brand-900/60 text-brand-700 dark:text-brand-300 text-xs font-bold flex items-center justify-center space-x-2 border border-brand-200 dark:border-brand-800/50 hover:bg-brand-200 transition-all">
+                                <label for="cfgLogoFile" class="cursor-pointer w-full py-2 px-3 rounded-xl bg-brand-100 text-brand-700 text-xs font-bold flex items-center justify-center space-x-2 border border-brand-200 hover:bg-brand-200 transition-all">
                                     <i class="fa-solid fa-upload"></i>
                                     <span>Escolher foto do celular / PC</span>
                                 </label>
@@ -504,52 +494,52 @@
                             </div>
 
                             <div class="relative flex py-1 items-center">
-                                <div class="flex-grow border-t border-slate-200 dark:border-slate-800"></div>
+                                <div class="flex-grow border-t border-slate-200"></div>
                                 <span class="flex-shrink mx-2 text-[10px] text-slate-400 font-semibold">ou cole o link</span>
-                                <div class="flex-grow border-t border-slate-200 dark:border-slate-800"></div>
+                                <div class="flex-grow border-t border-slate-200"></div>
                             </div>
 
-                            <input type="url" id="cfgLogoUrl" placeholder="https://exemplo.com/sua-foto.jpg" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <input type="url" id="cfgLogoUrl" placeholder="https://exemplo.com/sua-foto.jpg" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
                         </div>
 
                         <div>
-                            <label for="cfgStudioName" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Nome do Estúdio:</label>
-                            <input type="text" id="cfgStudioName" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <label for="cfgStudioName" class="block text-xs font-bold text-slate-700 mb-1">Nome do Estúdio:</label>
+                            <input type="text" id="cfgStudioName" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
                         </div>
 
                         <div>
-                            <label for="cfgStudioTagline" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Especialidades / Subtítulo:</label>
-                            <input type="text" id="cfgStudioTagline" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <label for="cfgStudioTagline" class="block text-xs font-bold text-slate-700 mb-1">Especialidades / Subtítulo:</label>
+                            <input type="text" id="cfgStudioTagline" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
                         </div>
 
                         <div>
-                            <label for="cfgWhatsapp" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">WhatsApp (Apenas números com DDD):</label>
-                            <input type="text" id="cfgWhatsapp" placeholder="Ex: 5596991179212" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <label for="cfgWhatsapp" class="block text-xs font-bold text-slate-700 mb-1">WhatsApp (Apenas números com DDD):</label>
+                            <input type="text" id="cfgWhatsapp" placeholder="Ex: 5596999999999" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
                         </div>
 
                         <div>
-                            <label for="cfgFormattedPhone" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Telefone Formatado (Exibição):</label>
-                            <input type="text" id="cfgFormattedPhone" placeholder="Ex: (96) 99117-9212" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <label for="cfgFormattedPhone" class="block text-xs font-bold text-slate-700 mb-1">Telefone Formatado (Exibição):</label>
+                            <input type="text" id="cfgFormattedPhone" placeholder="Ex: (96) 999999999" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
                         </div>
 
                         <div>
-                            <label for="cfgPixKey" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Chave PIX:</label>
-                            <input type="text" id="cfgPixKey" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <label for="cfgPixKey" class="block text-xs font-bold text-slate-700 mb-1">Chave PIX:</label>
+                            <input type="text" id="cfgPixKey" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
                         </div>
 
                         <!-- SEÇÃO DE SEGURANÇA DO PAINEL -->
-                        <div class="p-3.5 rounded-2xl bg-purple-50/70 dark:bg-purple-950/30 border border-purple-100 dark:border-purple-900/40 space-y-2.5 my-2">
+                        <div class="p-3.5 rounded-2xl bg-purple-50/70 border border-purple-100 space-y-2.5 my-2">
                             <div class="flex items-center space-x-2">
-                                <i class="fa-solid fa-shield-halved text-brand-600 dark:text-brand-400 text-xs"></i>
-                                <h4 class="text-xs font-bold text-slate-800 dark:text-white">Segurança do Painel</h4>
+                                <i class="fa-solid fa-shield-halved text-brand-600 text-xs"></i>
+                                <h4 class="text-xs font-bold text-slate-800">Segurança do Painel</h4>
                             </div>
                             <div>
-                                <label for="inputCurrentPass" class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">Senha Atual:</label>
-                                <input type="password" id="inputCurrentPass" placeholder="Digite sua senha atual" class="w-full px-3 py-1.5 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                                <label for="inputCurrentPass" class="block text-[11px] font-bold text-slate-700 mb-1">Senha Atual:</label>
+                                <input type="password" id="inputCurrentPass" placeholder="Digite sua senha atual" class="w-full px-3 py-1.5 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
                             </div>
                             <div>
-                                <label for="inputNewPass" class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">Nova Senha:</label>
-                                <input type="password" id="inputNewPass" placeholder="Digite a nova senha desejada" class="w-full px-3 py-1.5 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                                <label for="inputNewPass" class="block text-[11px] font-bold text-slate-700 mb-1">Nova Senha:</label>
+                                <input type="password" id="inputNewPass" placeholder="Digite a nova senha desejada" class="w-full px-3 py-1.5 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
                             </div>
                             <button type="button" id="btnUpdatePass" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-brand-700 to-brand-500 hover:from-brand-800 hover:to-brand-600 text-white font-bold text-xs shadow-md shadow-brand-700/20 transition-all active:scale-95 cursor-pointer">
                                 Atualizar Senha
@@ -557,28 +547,28 @@
                         </div>
 
                         <div>
-                            <label for="cfgDepositAmount" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Valor do Sinal:</label>
-                            <input type="text" id="cfgDepositAmount" placeholder="Ex: R$ 50,00" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <label for="cfgDepositAmount" class="block text-xs font-bold text-slate-700 mb-1">Valor do Sinal:</label>
+                            <input type="text" id="cfgDepositAmount" placeholder="Ex: R$ 50,00" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
                         </div>
 
                         <div>
-                            <label for="cfgTimeSlots" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Horários de Atendimento (vírgula):</label>
-                            <input type="text" id="cfgTimeSlots" placeholder="08:00, 09:00, 10:00, 11:00, 13:00, 14:00, 15:00, 16:00, 17:00, 18:00, 19:00, 20:00" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <label for="cfgTimeSlots" class="block text-xs font-bold text-slate-700 mb-1">Horários de Atendimento (vírgula):</label>
+                            <input type="text" id="cfgTimeSlots" placeholder="08:00, 09:00, 10:00, 11:00, 13:00, 14:00, 15:00, 16:00, 17:00, 18:00, 19:00, 20:00" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
                         </div>
 
                         <div>
-                            <label for="inputCtaTitle" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Título do Banner CTA:</label>
-                            <input type="text" id="inputCtaTitle" placeholder="Ex: Pronta para realçar seu olhar?" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <label for="inputCtaTitle" class="block text-xs font-bold text-slate-700 mb-1">Título do Banner CTA:</label>
+                            <input type="text" id="inputCtaTitle" placeholder="Ex: Pronta para realçar seu olhar?" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
                         </div>
 
                         <div>
-                            <label for="inputCtaSubtitle" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Subtítulo do Banner CTA:</label>
-                            <input type="text" id="inputCtaSubtitle" placeholder="Ex: Escolha seu horário agora em poucos passos." class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <label for="inputCtaSubtitle" class="block text-xs font-bold text-slate-700 mb-1">Subtítulo do Banner CTA:</label>
+                            <input type="text" id="inputCtaSubtitle" placeholder="Ex: Escolha seu horário agora em poucos passos." class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
                         </div>
 
                         <div>
-                            <label for="inputFooterText" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">Texto do Rodapé:</label>
-                            <input type="text" id="inputFooterText" placeholder="Ex: © 2026 Studio Tayssa Lopes • Todos os direitos reservados" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                            <label for="inputFooterText" class="block text-xs font-bold text-slate-700 mb-1">Texto do Rodapé:</label>
+                            <input type="text" id="inputFooterText" placeholder="Ex: © 2026 Agenda Facil • Todos os direitos reservados" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
                         </div>
 
                         <button type="submit" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-brand-700 to-brand-500 hover:from-brand-800 hover:to-brand-600 text-white font-bold text-xs shadow-md shadow-brand-700/20 active:scale-95 transition-all cursor-pointer">
@@ -589,22 +579,22 @@
 
                 <!-- SERVIÇOS -->
                 <div id="adminTabSection-servicos" class="hidden space-y-3">
-                    <div class="bg-purple-50 dark:bg-purple-950/40 p-3 rounded-2xl border border-purple-100 dark:border-purple-900/40">
-                        <h4 class="text-xs font-bold text-brand-700 dark:text-brand-300 mb-2">Cadastrar Novo Serviço</h4>
+                    <div class="bg-purple-50 p-3 rounded-2xl border border-purple-100">
+                        <h4 class="text-xs font-bold text-brand-700 mb-2">Cadastrar Novo Serviço</h4>
                         <div class="space-y-2">
-                            <input type="text" id="newServiceName" placeholder="Nome do Procedimento" class="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-                            <input type="text" id="newServiceDesc" placeholder="Descrição rápida" class="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
-                            <input type="number" id="newServicePrice" placeholder="Valor (Ex: 150)" class="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+                            <input type="text" id="newServiceName" placeholder="Nome do Procedimento" class="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white">
+                            <input type="text" id="newServiceDesc" placeholder="Descrição rápida" class="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white">
+                            <input type="text" inputmode="decimal" id="newServicePrice" placeholder="Valor (Ex: 150,00)" class="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white">
                             
                             <!-- SELETOR DE FOTO DO SERVIÇO DIRETO DO DISPOSITIVO -->
                             <div class="pt-1">
-                                <label class="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">Foto do Serviço (Celular ou PC):</label>
+                                <label class="block text-[11px] font-bold text-slate-700 mb-1">Foto do Serviço (Celular ou PC):</label>
                                 <div class="flex items-center space-x-2.5">
-                                    <div id="newServicePhotoPreview" class="w-14 h-14 rounded-xl bg-white dark:bg-slate-900 overflow-hidden flex items-center justify-center border border-slate-200 dark:border-slate-800 shrink-0 shadow-2xs">
+                                    <div id="newServicePhotoPreview" class="w-14 h-14 rounded-xl bg-white overflow-hidden flex items-center justify-center border border-slate-200 shrink-0 shadow-2xs">
                                         <i class="fa-solid fa-camera text-slate-400 text-xs"></i>
                                     </div>
                                     <div class="flex-1 space-y-1">
-                                        <label for="newServicePhotoFile" class="cursor-pointer py-1.5 px-3 rounded-xl bg-brand-100 dark:bg-brand-900/60 text-brand-700 dark:text-brand-300 text-xs font-bold flex items-center justify-center space-x-1.5 border border-brand-200 dark:border-brand-800/50 hover:bg-brand-200 transition-all text-center">
+                                        <label for="newServicePhotoFile" class="cursor-pointer py-1.5 px-3 rounded-xl bg-brand-100 text-brand-700 text-xs font-bold flex items-center justify-center space-x-1.5 border border-brand-200 hover:bg-brand-200 transition-all text-center">
                                             <i class="fa-solid fa-upload text-xs"></i>
                                             <span>Escolher Foto</span>
                                         </label>
@@ -622,19 +612,19 @@
                         </div>
                     </div>
 
-                    <h4 class="text-xs font-bold text-slate-700 dark:text-slate-300">Serviços Cadastrados</h4>
+                    <h4 class="text-xs font-bold text-slate-700">Serviços Cadastrados</h4>
                     <div id="adminServicesList" class="space-y-2 max-h-48 overflow-y-auto pr-1 custom-scrollbar">
                     </div>
                 </div>
 
                 <!-- REGRAS -->
                 <div id="adminTabSection-regras" class="hidden space-y-3">
-                    <div class="bg-purple-50 dark:bg-purple-950/40 p-3 rounded-2xl border border-purple-100 dark:border-purple-900/40">
-                        <h4 class="text-xs font-bold text-brand-700 dark:text-brand-300 mb-2">Cadastrar Nova Regra</h4>
+                    <div class="bg-purple-50 p-3 rounded-2xl border border-purple-100">
+                        <h4 class="text-xs font-bold text-brand-700 mb-2">Cadastrar Nova Regra</h4>
                         <div class="space-y-2">
                             <div class="flex gap-2">
-                                <input type="text" id="newRuleIcon" placeholder="Emoji (ex: ⏰, 🚫)" class="w-24 px-3 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-center">
-                                <input type="text" id="newRuleText" placeholder="Texto da regra (ex: Não se atrase)" class="flex-1 px-3 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+                                <input type="text" id="newRuleIcon" placeholder="Emoji (ex: ⏰, 🚫)" class="w-24 px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white text-center">
+                                <input type="text" id="newRuleText" placeholder="Texto da regra (ex: Não se atrase)" class="flex-1 px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white">
                             </div>
                             <button id="btnAddRule" type="button" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-brand-700 to-brand-500 hover:from-brand-800 hover:to-brand-600 text-white font-bold text-xs shadow-md shadow-brand-700/20 active:scale-95 transition-all cursor-pointer">
                                 + Adicionar Regra
@@ -642,7 +632,7 @@
                         </div>
                     </div>
 
-                    <h4 class="text-xs font-bold text-slate-700 dark:text-slate-300">Regras Existentes</h4>
+                    <h4 class="text-xs font-bold text-slate-700">Regras Existentes</h4>
                     <div id="adminRulesList" class="space-y-2 max-h-48 overflow-y-auto pr-1 custom-scrollbar">
                     </div>
                 </div>
@@ -652,7 +642,7 @@
                     <!-- Agendamentos dos Clientes -->
                     <div class="space-y-2">
                         <div class="flex items-center justify-between">
-                            <h4 class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center space-x-1.5">
+                            <h4 class="text-xs font-bold text-slate-700 flex items-center space-x-1.5">
                                 <i class="fa-solid fa-user-check text-brand-600"></i>
                                 <span>Agendamentos de Clientes</span>
                             </h4>
@@ -662,18 +652,18 @@
                     </div>
 
                     <!-- Marcar Horário como Ocupado -->
-                    <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800 space-y-2">
-                        <h4 class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center space-x-1.5">
+                    <div class="p-3 rounded-2xl bg-slate-50 border border-slate-100 space-y-2">
+                        <h4 class="text-xs font-bold text-slate-700 flex items-center space-x-1.5">
                             <i class="fa-solid fa-lock text-rose-500"></i>
                             <span>Marcar Horário como Ocupado</span>
                         </h4>
                         <div>
                             <label for="blockDateInput" class="block text-[11px] text-slate-500 mb-1">Data:</label>
-                            <input type="date" id="blockDateInput" class="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+                            <input type="date" id="blockDateInput" class="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white">
                         </div>
                         <div>
                             <label for="blockTimeSelect" class="block text-[11px] text-slate-500 mb-1">Horário:</label>
-                            <select id="blockTimeSelect" class="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+                            <select id="blockTimeSelect" class="w-full px-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-white">
                             </select>
                         </div>
                         <button id="btnAddBlockedSlot" type="button" class="w-full py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-sm cursor-pointer transition-all active:scale-95">
@@ -683,7 +673,7 @@
 
                     <!-- Horários Indisponíveis Marcadamente -->
                     <div class="space-y-2">
-                        <h4 class="text-xs font-bold text-slate-700 dark:text-slate-300">Horários Indisponíveis Marcadamente</h4>
+                        <h4 class="text-xs font-bold text-slate-700">Horários Indisponíveis Marcadamente</h4>
                         <div id="blockedSlotsList" class="space-y-1.5 max-h-44 overflow-y-auto pr-1 custom-scrollbar">
                         </div>
                     </div>
@@ -691,14 +681,14 @@
 
                 <!-- CORES DA PALETA DA LOGO -->
                 <div id="adminTabSection-cores" class="hidden space-y-3">
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Escolha a paleta de cores que melhor combina com a sua logo para personalizar todo o visual do site:</p>
+                    <p class="text-xs text-slate-500">Escolha a paleta de cores que melhor combina com a sua logo para personalizar todo o visual do site:</p>
                     
                     <div id="colorPresetsContainer" class="space-y-2 max-h-60 overflow-y-auto pr-1 custom-scrollbar">
                     </div>
                 </div>
 
-                <div class="border-t border-slate-100 dark:border-slate-800 pt-3">
-                    <button id="btnRestoreDefaults" type="button" class="w-full py-2 rounded-xl border border-rose-200 dark:border-rose-900/50 text-rose-600 dark:text-rose-400 text-xs font-bold hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-all cursor-pointer">
+                <div class="border-t border-slate-100 pt-3">
+                    <button id="btnRestoreDefaults" type="button" class="w-full py-2 rounded-xl border border-rose-200 text-rose-600 text-xs font-bold hover:bg-rose-50 transition-all cursor-pointer">
                         Restaurar Configurações Iniciais
                     </button>
                 </div>
@@ -712,28 +702,16 @@
         // CONFIGURAÇÃO E INICIALIZAÇÃO DO FIREBASE
         // PROJETO: agenda-facil-adm
         // ==========================================
-        // Import the functions you need from the SDKs you need
+        const firebaseConfig = {
+            apiKey: "AIzaSyCxeQxcd5ZfkPb0HjlPaioZgnMrBlp3RlY",
+            authDomain: "agenda-facil-adm.firebaseapp.com",
+            projectId: "agenda-facil-adm",
+            storageBucket: "agenda-facil-adm.firebasestorage.app",
+            messagingSenderId: "749294467467",
+            appId: "1:749294467467:web:08f5528a3885851ec1178e"
+        };
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-apiKey: "AIzaSyCxeQxcd5ZfkPb0HjlPaioZgnMrBlp3RlY",
-authDomain: "agenda-facil-adm.firebaseapp.com",
-projectId: "agenda-facil-adm",
-storageBucket: "agenda-facil-adm.firebasestorage.app",
-messagingSenderId: "749294467467",
-appId: "1:749294467467:web:08f5528a3885851ec1178e"
-};
-        if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
-
-// Initialize Firebase
-
-
-        // Inicialização do Firebase e serviços
+        // Inicialização do Firebase e serviços (protegida contra falha de carregamento do SDK)
         let firebaseApp = null;
         let firebaseAuth = null;
         let firebaseDb = null;
@@ -758,12 +736,137 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
         window.firebaseDb = firebaseDb;
 
         // ========================================================
+        // HELPERS DE FORMATAÇÃO MONETÁRIA, DATA LOCAL E SEGURANÇA
+        // ========================================================
+        function parseBRLNumber(value) {
+            if (typeof value === 'number') {
+                if (!Number.isFinite(value) || value < 0) return null;
+                return Math.round(value * 100) / 100;
+            }
+            if (value === null || value === undefined) return null;
+            let str = String(value).trim();
+            if (!str) return null;
+
+            str = str.replace(/R\$/gi, '').replace(/\s+/g, '').replace(/[^\d.,-]/g, '');
+            if (!str || str === '-' || str === '.' || str === ',') return null;
+
+            const hasComma = str.includes(',');
+            const hasDot = str.includes('.');
+            let normalized = str;
+
+            if (hasComma && hasDot) {
+                if (str.lastIndexOf(',') > str.lastIndexOf('.')) {
+                    normalized = str.replace(/\./g, '').replace(',', '.');
+                } else {
+                    normalized = str.replace(/,/g, '');
+                }
+            } else if (hasComma) {
+                const parts = str.split(',');
+                if (parts.length > 2) {
+                    const dec = parts.pop();
+                    normalized = parts.join('') + '.' + dec;
+                } else {
+                    normalized = str.replace(',', '.');
+                }
+            } else if (hasDot) {
+                const parts = str.split('.');
+                if (parts.length > 2) {
+                    const dec = parts.pop();
+                    normalized = parts.join('') + '.' + dec;
+                }
+            }
+
+            const num = Number(normalized);
+            if (!Number.isFinite(num) || num < 0) return null;
+            return Math.round(num * 100) / 100;
+        }
+
+        function formatBRL(value) {
+            const num = parseBRLNumber(value);
+            const safeNum = num === null ? 0 : num;
+            const fixed = safeNum.toFixed(2);
+            const parts = fixed.split('.');
+            const formattedInt = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            return `R$ ${formattedInt},${parts[1]}`;
+        }
+
+        function normalizeDepositAmount(raw) {
+            if (raw === undefined || raw === null) return '';
+            const str = String(raw).trim();
+            if (!str) return '';
+            if (str.includes('%')) return str;
+            const num = parseBRLNumber(str);
+            if (num === null) return str;
+            return formatBRL(num);
+        }
+
+        function getLocalDateStr(dateObj) {
+            const d = dateObj || new Date();
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function escapeHtml(value) {
+            if (value === null || value === undefined) return '';
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function sanitizePhone(phone) {
+            return String(phone || '').replace(/\D/g, '');
+        }
+
+        function copyToClipboard(text, successMsg) {
+            const str = String(text || '');
+            const fallbackCopy = () => {
+                try {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = str;
+                    textarea.setAttribute('readonly', '');
+                    textarea.style.position = 'fixed';
+                    textarea.style.opacity = '0';
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    const ok = document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    if (ok) {
+                        showToast(successMsg);
+                    } else {
+                        showToast("Não foi possível copiar automaticamente.");
+                    }
+                } catch (e) {
+                    showToast("Não foi possível copiar automaticamente.");
+                }
+            };
+
+            if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+                navigator.clipboard.writeText(str)
+                    .then(() => showToast(successMsg))
+                    .catch(() => fallbackCopy());
+            } else {
+                fallbackCopy();
+            }
+        }
+
+        // ========================================================
         // IDENTIFICADOR DINÂMICO DO CLIENTE PELA URL (?cliente=slug)
         // ========================================================
         function getClienteDocId() {
             try {
-                const raw = new URLSearchParams(window.location.search).get('cliente');
-                if (!raw) return 'padrao';
+                const params = new URLSearchParams(window.location.search);
+                const fromQuery = params.get('cliente');
+                const pathParts = (window.location.pathname || '')
+                    .split('/')
+                    .filter(part => part && !part.endsWith('.html'));
+                const fromPath = pathParts.length > 0 ? pathParts[0] : '';
+                const raw = fromQuery || fromPath || 'padrao';
+
                 const normalized = String(raw)
                     .trim()
                     .toLowerCase()
@@ -774,20 +877,19 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
                     .replace(/^-+|-+$/g, '');
                 return normalized || 'padrao';
             } catch (err) {
-                console.warn("[Config] Erro ao ler parâmetro cliente da URL:", err);
+                console.warn("[Config] Erro ao identificar cliente pela URL:", err);
                 return 'padrao';
             }
         }
-
         const CLIENTE_DOC_ID = getClienteDocId();
-        const CLIENTE_STORAGE_KEY = `studio_tayssa_data_${CLIENTE_DOC_ID}`;
+        const CLIENTE_STORAGE_KEY = `agenda_facil_data_${CLIENTE_DOC_ID}`;
 
         function saveLocalCache(stateObj) {
             try {
                 const serialized = JSON.stringify(stateObj);
                 localStorage.setItem(CLIENTE_STORAGE_KEY, serialized);
-                localStorage.setItem('studio_tayssa_data', serialized);
-                localStorage.setItem('studio_tayssa_cliente_id', CLIENTE_DOC_ID);
+                localStorage.setItem('agenda_facil_data', serialized);
+                localStorage.setItem('agenda_facil_cliente_id', CLIENTE_DOC_ID);
             } catch (err) {
                 console.warn("[Cache] Erro ao salvar no localStorage:", err);
             }
@@ -850,8 +952,10 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
                     const loadedServices = Array.isArray(remote.services)
                         ? remote.services.map(item => {
                             const s = { ...item };
+                            const parsedPrice = parseBRLNumber(s.price);
+                            s.price = parsedPrice !== null ? parsedPrice : 0;
                             if (!s.imageUrl) {
-                                const def = DEFAULT_DATA.services.find(d => d.id === s.id || d.name === s.name);
+                                const def = DEFAULT_DATA.services.find(d => String(d.id) === String(s.id) || d.name === s.name);
                                 s.imageUrl = def ? def.imageUrl : DEFAULT_SERVICE_IMG;
                             }
                             return s;
@@ -1218,15 +1322,15 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
 
         // --- DATA DEFAULTS & INITIALIZATION ---
         const DEFAULT_DATA = {
-            studioName: "Studio Tayssa Lopes",
-            studioTagline: "Especialista em Cílios & Sobrancelhas ✨",
-            whatsappNumber: "5596991179212",
-            formattedPhone: "(96) 99117-9212",
-            pixKey: "96991179212",
+            studioName: "Agenda Facil",
+            studioTagline: "Agendamento online automatico ✨",
+            whatsappNumber: "5596999999999",
+            formattedPhone: "(96) 999999999",
+            pixKey: "96999999999",
             depositAmount: "R$ 50,00",
             ctaTitle: "Pronta para realçar seu olhar?",
             ctaSubtitle: "Escolha seu horário agora em poucos passos.",
-            footerText: "© 2026 Studio Tayssa Lopes • Todos os direitos reservados",
+            footerText: "© 2026 Agenda Facil • Todos os direitos reservados",
             logoUrl: "",
             activePaletteKey: "lilas",
             adminPassword: "1234",
@@ -1276,28 +1380,30 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
             if (depositStr === undefined || depositStr === null) return false;
             const str = String(depositStr).trim();
             if (!str) return false;
-            const cleaned = str.replace(/[^\d,\.]/g, '').replace(',', '.').trim();
-            if (!cleaned) return false;
-            const val = parseFloat(cleaned);
-            return !isNaN(val) && val > 0;
+            const val = parseBRLNumber(str);
+            return val !== null && val > 0;
         }
 
         // Application State loaded from localStorage (isolated per client) or default
         let appState = null;
         try {
-            const savedClienteId = localStorage.getItem('studio_tayssa_cliente_id');
+            const savedClienteId = localStorage.getItem('agenda_facil_cliente_id');
             let saved = localStorage.getItem(CLIENTE_STORAGE_KEY);
             if (!saved && ((!savedClienteId && CLIENTE_DOC_ID === 'padrao') || savedClienteId === CLIENTE_DOC_ID)) {
-                saved = localStorage.getItem('studio_tayssa_data');
+                saved = localStorage.getItem('agenda_facil_data');
             }
             if (saved) {
                 const parsed = JSON.parse(saved);
                 let loadedServices = (parsed.services && Array.isArray(parsed.services)) ? parsed.services : DEFAULT_DATA.services;
-                loadedServices.forEach(s => {
-                    if (!s.imageUrl) {
-                        const def = DEFAULT_DATA.services.find(d => d.id === s.id || d.name === s.name);
-                        s.imageUrl = def ? def.imageUrl : DEFAULT_SERVICE_IMG;
+                loadedServices = loadedServices.map(s => {
+                    const item = { ...s };
+                    const parsedPrice = parseBRLNumber(item.price);
+                    item.price = parsedPrice !== null ? parsedPrice : 0;
+                    if (!item.imageUrl) {
+                        const def = DEFAULT_DATA.services.find(d => String(d.id) === String(item.id) || d.name === item.name);
+                        item.imageUrl = def ? def.imageUrl : DEFAULT_SERVICE_IMG;
                     }
+                    return item;
                 });
 
                 appState = {
@@ -1308,11 +1414,11 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
                     ctaSubtitle: parsed.ctaSubtitle || DEFAULT_DATA.ctaSubtitle,
                     footerText: parsed.footerText || DEFAULT_DATA.footerText,
                     adminPassword: parsed.adminPassword || DEFAULT_DATA.adminPassword,
-                    blockedSlots: parsed.blockedSlots || DEFAULT_DATA.blockedSlots,
-                    bookings: parsed.bookings || DEFAULT_DATA.bookings,
-                    timeSlots: parsed.timeSlots || DEFAULT_DATA.timeSlots,
+                    blockedSlots: (parsed.blockedSlots && typeof parsed.blockedSlots === 'object' && !Array.isArray(parsed.blockedSlots)) ? parsed.blockedSlots : DEFAULT_DATA.blockedSlots,
+                    bookings: Array.isArray(parsed.bookings) ? parsed.bookings : DEFAULT_DATA.bookings,
+                    timeSlots: (Array.isArray(parsed.timeSlots) && parsed.timeSlots.length > 0) ? parsed.timeSlots : DEFAULT_DATA.timeSlots,
                     services: loadedServices,
-                    rules: parsed.rules || DEFAULT_DATA.rules
+                    rules: Array.isArray(parsed.rules) ? parsed.rules : DEFAULT_DATA.rules
                 };
             }
         } catch (e) {
@@ -1329,7 +1435,7 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
         // Format Date to DD/MM/YYYY
         function formatDateBR(dateStr) {
             if (!dateStr) return "";
-            const parts = dateStr.split('-');
+            const parts = String(dateStr).split('-');
             if (parts.length === 3) {
                 return `${parts[2]}/${parts[1]}/${parts[0]}`;
             }
@@ -1358,13 +1464,15 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
         }
 
         // Toast Helper
+        let toastTimer = null;
         function showToast(msg) {
             const toast = document.getElementById('toastNotification');
             const text = document.getElementById('toastText');
             if (toast && text) {
                 text.textContent = msg;
                 toast.classList.remove('hidden');
-                setTimeout(() => {
+                if (toastTimer) clearTimeout(toastTimer);
+                toastTimer = setTimeout(() => {
                     toast.classList.add('hidden');
                 }, 3500);
             }
@@ -1475,24 +1583,6 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
             btnRestoreDefaults: document.getElementById('btnRestoreDefaults')
         };
 
-        // --- THEME TOGGLE (DARK MODE) ---
-        const themeToggle = document.getElementById('themeToggle');
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-
-        themeToggle.addEventListener('click', () => {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.theme = 'light';
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.theme = 'dark';
-            }
-        });
-
         // --- NAVIGATION TABS ---
         const tabs = {
             valores: { btn: document.getElementById('tab-btn-valores'), sec: document.getElementById('tab-valores') },
@@ -1521,17 +1611,19 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
         function renderUI() {
             // General Info
             if (elements.year) elements.year.textContent = new Date().getFullYear();
-            elements.pageTitle.textContent = `${appState.studioName} | Agendamento & Serviços`;
-            elements.navTitle.textContent = appState.studioName;
-            elements.heroTitle.textContent = appState.studioName;
-            if (elements.footerStudioName) elements.footerStudioName.textContent = appState.studioName;
-            elements.navSubTitle.textContent = appState.studioTagline;
-            elements.heroSubTitle.textContent = appState.studioTagline;
-            elements.phoneDisplay.textContent = appState.formattedPhone;
-            elements.whatsappBtnHeader.href = `https://wa.me/${appState.whatsappNumber}`;
-            elements.pixKeyText.textContent = appState.pixKey;
+            const safeStudioName = (appState.studioName || DEFAULT_DATA.studioName).trim() || DEFAULT_DATA.studioName;
+            elements.pageTitle.textContent = `${safeStudioName} | Agendamento & Serviços`;
+            elements.navTitle.textContent = safeStudioName;
+            elements.heroTitle.textContent = safeStudioName;
+            if (elements.footerStudioName) elements.footerStudioName.textContent = safeStudioName;
+            elements.navSubTitle.textContent = appState.studioTagline || '';
+            elements.heroSubTitle.textContent = appState.studioTagline || '';
+            elements.phoneDisplay.textContent = appState.formattedPhone || '';
+            elements.whatsappBtnHeader.href = `https://wa.me/${sanitizePhone(appState.whatsappNumber)}`;
+            elements.pixKeyText.textContent = appState.pixKey || '';
 
             const withDeposit = hasDeposit(appState.depositAmount);
+            const displayDeposit = normalizeDepositAmount(appState.depositAmount) || "R$ 0,00";
             if (elements.sectionPixSinalRules) {
                 if (withDeposit) {
                     elements.sectionPixSinalRules.classList.remove('hidden');
@@ -1540,7 +1632,7 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
                 }
             }
 
-            elements.depositRuleTexts.forEach(el => el.textContent = appState.depositAmount || "R$ 0,00");
+            elements.depositRuleTexts.forEach(el => el.textContent = displayDeposit);
 
             // Logo Handling
             if (appState.logoUrl) {
@@ -1552,7 +1644,7 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
                 elements.heroLogoImg.classList.remove('hidden');
                 elements.heroLogoText.classList.add('hidden');
 
-                elements.previewAdminLogo.innerHTML = `<img src="${appState.logoUrl}" class="w-full h-full object-cover">`;
+                elements.previewAdminLogo.innerHTML = `<img src="${escapeHtml(appState.logoUrl)}" alt="Logo" class="w-full h-full object-cover">`;
             } else {
                 elements.navLogoImg.classList.add('hidden');
                 elements.navLogoText.classList.remove('hidden');
@@ -1560,35 +1652,45 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
                 elements.heroLogoImg.classList.add('hidden');
                 elements.heroLogoText.classList.remove('hidden');
 
-                const initials = appState.studioName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'TL';
+                const initials = safeStudioName.split(/\s+/).filter(Boolean).map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'AF';
                 elements.navLogoText.textContent = initials;
                 elements.heroLogoText.textContent = initials;
-                elements.previewAdminLogo.innerHTML = `<span>${initials}</span>`;
+                elements.previewAdminLogo.innerHTML = `<span>${escapeHtml(initials)}</span>`;
             }
 
             // Services Tab
             renderServicesList();
             
-            // Services Selector inside Booking Tab
-            elements.selectService.innerHTML = appState.services.map(s => 
-                `<option value="${s.name}">- ${s.name} (R$ ${s.price},00)</option>`
-            ).join('');
+            // Services Selector inside Booking Tab (preserva seleção atual se ainda existir)
+            const prevSelectedService = elements.selectService.value;
+            const servicesList = Array.isArray(appState.services) ? appState.services : [];
+            if (servicesList.length === 0) {
+                elements.selectService.innerHTML = `<option value="">Nenhum procedimento cadastrado</option>`;
+            } else {
+                elements.selectService.innerHTML = servicesList.map(s => 
+                    `<option value="${escapeHtml(s.name)}">- ${escapeHtml(s.name)} (${escapeHtml(formatBRL(s.price))})</option>`
+                ).join('');
+                if (prevSelectedService && servicesList.some(s => s.name === prevSelectedService)) {
+                    elements.selectService.value = prevSelectedService;
+                }
+            }
             updateBookingSelectedServicePreview();
 
             // Rules Tab (oculta regras de sinal quando valor for 0 ou vazio)
+            const rulesList = Array.isArray(appState.rules) ? appState.rules : [];
             const activeRules = withDeposit 
-                ? appState.rules 
-                : appState.rules.filter(r => !r.text.toLowerCase().includes('sinal'));
+                ? rulesList 
+                : rulesList.filter(r => !(r.text || '').toLowerCase().includes('sinal'));
 
             elements.rulesContainer.innerHTML = activeRules.map(r => {
-                let ruleText = r.text;
-                if (withDeposit && ruleText.toLowerCase().includes('sinal') && appState.depositAmount) {
-                    ruleText = ruleText.replace(/\(R\$\s*[\d,\.]+\)/i, `(${appState.depositAmount})`);
+                let ruleText = r.text || '';
+                if (withDeposit && ruleText.toLowerCase().includes('sinal') && displayDeposit) {
+                    ruleText = ruleText.replace(/\((?:R\$\s*)?[\d.,]+\)/i, `(${displayDeposit})`);
                 }
                 return `
-                <div class="flex items-start space-x-3 p-3.5 rounded-2xl bg-white/70 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800 shadow-sm">
-                    <span class="text-lg leading-none shrink-0">${r.icon || '✨'}</span>
-                    <p class="text-xs text-slate-700 dark:text-slate-300 font-medium leading-relaxed">${ruleText}</p>
+                <div class="flex items-start space-x-3 p-3.5 rounded-2xl bg-white/70 border border-slate-100 shadow-sm">
+                    <span class="text-lg leading-none shrink-0">${escapeHtml(r.icon || '✨')}</span>
+                    <p class="text-xs text-slate-700 font-medium leading-relaxed">${escapeHtml(ruleText)}</p>
                 </div>
             `;
             }).join('');
@@ -1602,14 +1704,14 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
             if (elements.footerText) elements.footerText.textContent = appState.footerText || DEFAULT_DATA.footerText;
 
             // Populate Admin Inputs
-            elements.cfgStudioName.value = appState.studioName;
-            elements.cfgStudioTagline.value = appState.studioTagline;
-            elements.cfgWhatsapp.value = appState.whatsappNumber;
-            elements.cfgFormattedPhone.value = appState.formattedPhone;
-            elements.cfgPixKey.value = appState.pixKey;
-            elements.cfgDepositAmount.value = appState.depositAmount;
+            elements.cfgStudioName.value = appState.studioName || '';
+            elements.cfgStudioTagline.value = appState.studioTagline || '';
+            elements.cfgWhatsapp.value = appState.whatsappNumber || '';
+            elements.cfgFormattedPhone.value = appState.formattedPhone || '';
+            elements.cfgPixKey.value = appState.pixKey || '';
+            elements.cfgDepositAmount.value = appState.depositAmount || '';
             elements.cfgTimeSlots.value = (appState.timeSlots || []).join(', ');
-            elements.cfgLogoUrl.value = appState.logoUrl;
+            elements.cfgLogoUrl.value = appState.logoUrl || '';
             if (elements.inputCtaTitle) elements.inputCtaTitle.value = appState.ctaTitle || DEFAULT_DATA.ctaTitle;
             if (elements.inputCtaSubtitle) elements.inputCtaSubtitle.value = appState.ctaSubtitle || DEFAULT_DATA.ctaSubtitle;
             if (elements.inputFooterText) elements.inputFooterText.value = appState.footerText || DEFAULT_DATA.footerText;
@@ -1620,8 +1722,9 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
 
         function renderServicesList() {
             const query = (elements.serviceSearch.value || "").toLowerCase().trim();
-            const filtered = appState.services.filter(s => 
-                s.name.toLowerCase().includes(query) || (s.desc && s.desc.toLowerCase().includes(query))
+            const servicesList = Array.isArray(appState.services) ? appState.services : [];
+            const filtered = servicesList.filter(s => 
+                (s.name || '').toLowerCase().includes(query) || (s.desc && s.desc.toLowerCase().includes(query))
             );
 
             if (filtered.length === 0) {
@@ -1634,17 +1737,17 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
                 return `
                 <div class="py-3.5 flex items-center justify-between gap-3 group">
                     <div class="space-y-0.5 flex-1 min-w-0">
-                        <h4 class="font-bold text-xs text-slate-900 dark:text-white leading-tight">${s.name}</h4>
-                        <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-snug line-clamp-2">${s.desc || ''}</p>
+                        <h4 class="font-bold text-xs text-slate-900 leading-tight">${escapeHtml(s.name)}</h4>
+                        <p class="text-[11px] text-slate-500 leading-snug line-clamp-2">${escapeHtml(s.desc || '')}</p>
                         <div class="flex items-center space-x-2 pt-1">
-                            <span class="text-xs font-black text-brand-700 dark:text-brand-300">R$ ${s.price},00</span>
-                            <button type="button" onclick="quickSelectService('${s.name}')" class="px-2.5 py-0.5 rounded-lg bg-brand-50 dark:bg-brand-950/50 text-[10px] font-bold text-brand-700 dark:text-brand-300 hover:bg-brand-100 dark:hover:bg-brand-900/60 transition-all cursor-pointer">
+                            <span class="text-xs font-black text-brand-700">${escapeHtml(formatBRL(s.price))}</span>
+                            <button type="button" data-service-name="${escapeHtml(s.name)}" onclick="quickSelectService(this.dataset.serviceName)" class="px-2.5 py-0.5 rounded-lg bg-brand-50 text-[10px] font-bold text-brand-700 hover:bg-brand-100 transition-all cursor-pointer">
                                 Agendar
                             </button>
                         </div>
                     </div>
-                    <div class="relative w-20 h-20 shrink-0 rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 cursor-pointer group/thumb" onclick="openPhotoModal(${s.id})" title="Toque para ampliar a foto">
-                        <img src="${imgUrl}" alt="${s.name}" class="w-full h-full object-cover transition-transform duration-300 group-hover/thumb:scale-105" onerror="this.src=SVG_LASH_PLACEHOLDER">
+                    <div class="relative w-20 h-20 shrink-0 rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 bg-slate-100 cursor-pointer group/thumb" data-id="${escapeHtml(s.id)}" onclick="openPhotoModal(this.dataset.id)" title="Toque para ampliar a foto">
+                        <img src="${escapeHtml(imgUrl)}" alt="${escapeHtml(s.name)}" class="w-full h-full object-cover transition-transform duration-300 group-hover/thumb:scale-105" onerror="this.src=SVG_LASH_PLACEHOLDER">
                         <span class="absolute bottom-1 right-1 w-5 h-5 rounded-full bg-black/60 text-white flex items-center justify-center text-[9px] backdrop-blur-xs">
                             <i class="fa-solid fa-magnifying-glass-plus"></i>
                         </span>
@@ -1658,30 +1761,39 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
 
         // Atualiza o Card Preview com Foto no Agendamento
         function updateBookingSelectedServicePreview() {
+            const servicesList = Array.isArray(appState.services) ? appState.services : [];
             const chosenName = elements.selectService.value;
-            const s = appState.services.find(item => item.name === chosenName) || appState.services[0];
-            if (s && elements.bookingSelectedServiceCard) {
-                if (elements.bookingSelectedServiceImg) {
-                    elements.bookingSelectedServiceImg.src = s.imageUrl || DEFAULT_SERVICE_IMG;
-                    elements.bookingSelectedServiceImg.onerror = () => { elements.bookingSelectedServiceImg.src = SVG_LASH_PLACEHOLDER; };
-                }
-                if (elements.bookingSelectedServiceName) elements.bookingSelectedServiceName.textContent = s.name;
-                if (elements.bookingSelectedServiceDesc) elements.bookingSelectedServiceDesc.textContent = s.desc || 'Procedimento realizado com materiais de alta qualidade';
-                if (elements.bookingSelectedServicePrice) elements.bookingSelectedServicePrice.textContent = `R$ ${s.price},00`;
+            const s = servicesList.find(item => item.name === chosenName) || servicesList[0];
+            if (!elements.bookingSelectedServiceCard) return;
+
+            if (!s) {
+                elements.bookingSelectedServiceCard.classList.add('hidden');
+                return;
             }
+
+            elements.bookingSelectedServiceCard.classList.remove('hidden');
+            if (elements.bookingSelectedServiceImg) {
+                elements.bookingSelectedServiceImg.src = s.imageUrl || DEFAULT_SERVICE_IMG;
+                elements.bookingSelectedServiceImg.onerror = () => { elements.bookingSelectedServiceImg.src = SVG_LASH_PLACEHOLDER; };
+            }
+            if (elements.bookingSelectedServiceName) elements.bookingSelectedServiceName.textContent = s.name;
+            if (elements.bookingSelectedServiceDesc) elements.bookingSelectedServiceDesc.textContent = s.desc || 'Procedimento realizado com materiais de alta qualidade';
+            if (elements.bookingSelectedServicePrice) elements.bookingSelectedServicePrice.textContent = formatBRL(s.price);
         }
 
         elements.selectService.addEventListener('change', updateBookingSelectedServicePreview);
 
         window.openSelectedServicePhoto = function() {
+            const servicesList = Array.isArray(appState.services) ? appState.services : [];
             const chosenName = elements.selectService.value;
-            const s = appState.services.find(item => item.name === chosenName) || appState.services[0];
+            const s = servicesList.find(item => item.name === chosenName) || servicesList[0];
             if (s) openPhotoModal(s.id);
         };
 
         // Lightbox Modal de Foto em Tela Cheia
         window.openPhotoModal = function(serviceId) {
-            const s = appState.services.find(item => item.id === serviceId);
+            const servicesList = Array.isArray(appState.services) ? appState.services : [];
+            const s = servicesList.find(item => String(item.id) === String(serviceId));
             if (!s) return;
             const modal = document.getElementById('servicePhotoModal');
             const img = document.getElementById('photoModalImg');
@@ -1695,7 +1807,7 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
                 img.onerror = () => { img.src = SVG_LASH_PLACEHOLDER; };
                 if (title) title.textContent = s.name;
                 if (desc) desc.textContent = s.desc || 'Técnica exclusiva realizada com produtos hipoalergênicos e acabamento de excelência.';
-                if (price) price.textContent = `R$ ${s.price},00`;
+                if (price) price.textContent = formatBRL(s.price);
                 if (btnBook) {
                     btnBook.onclick = () => {
                         closePhotoModal();
@@ -1721,8 +1833,8 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
             switchTab('agendar');
         };
 
-        // Set default date to today
-        const todayStr = new Date().toISOString().split('T')[0];
+        // Set default date to local today (evita diferença de fuso horário UTC após 21h)
+        const todayStr = getLocalDateStr();
         elements.inputDate.value = todayStr;
         elements.inputDate.min = todayStr;
         elements.blockDateInput.value = todayStr;
@@ -1731,31 +1843,44 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
         function renderTimeSlots() {
             const dateVal = elements.inputDate.value;
             elements.slotsGrid.innerHTML = '';
-            selectedSlot = null;
 
             if (!dateVal) {
+                selectedSlot = null;
                 elements.slotsGrid.innerHTML = `<p class="col-span-3 text-xs text-slate-400 text-center py-2">Selecione uma data para ver os horários.</p>`;
                 return;
             }
 
-            const blockedForDate = appState.blockedSlots[dateVal] || [];
+            const blockedForDate = (appState.blockedSlots && appState.blockedSlots[dateVal]) ? appState.blockedSlots[dateVal] : [];
+            const timeSlots = Array.isArray(appState.timeSlots) ? appState.timeSlots : [];
 
-            appState.timeSlots.forEach(slot => {
+            if (selectedSlot && (blockedForDate.includes(selectedSlot) || !timeSlots.includes(selectedSlot))) {
+                selectedSlot = null;
+            }
+
+            if (timeSlots.length === 0) {
+                elements.slotsGrid.innerHTML = `<p class="col-span-3 text-xs text-slate-400 text-center py-2">Nenhum horário configurado.</p>`;
+                return;
+            }
+
+            timeSlots.forEach(slot => {
                 const isBlocked = blockedForDate.includes(slot);
+                const isSelected = !isBlocked && selectedSlot === slot;
                 const btn = document.createElement('button');
                 btn.type = 'button';
                 
                 if (isBlocked) {
-                    btn.className = "py-2 px-1 rounded-xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/40 text-rose-500 text-xs font-bold cursor-not-allowed opacity-80 flex items-center justify-center space-x-1 shadow-xs";
-                    btn.innerHTML = `<i class="fa-solid fa-lock text-[10px]"></i> <span>${slot}</span>`;
+                    btn.className = "py-2 px-1 rounded-xl bg-rose-50 border border-rose-200 text-rose-500 text-xs font-bold cursor-not-allowed opacity-80 flex items-center justify-center space-x-1 shadow-xs";
+                    btn.innerHTML = `<i class="fa-solid fa-lock text-[10px]"></i> <span>${escapeHtml(slot)}</span>`;
                     btn.disabled = true;
                     btn.title = "Horário já reservado ou ocupado";
                 } else {
-                    btn.className = "py-2 px-1 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all hover:border-brand-500 active:scale-95 cursor-pointer";
-                    btn.innerHTML = `<span>${slot}</span>`;
+                    btn.className = isSelected
+                        ? "py-2 px-1 rounded-xl bg-brand-700 text-white border border-brand-700 text-xs font-bold shadow-md shadow-brand-700/30 scale-[1.02] cursor-pointer"
+                        : "py-2 px-1 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold transition-all hover:border-brand-500 active:scale-95 cursor-pointer";
+                    btn.innerHTML = `<span>${escapeHtml(slot)}</span>`;
                     btn.onclick = () => {
                         Array.from(elements.slotsGrid.children).forEach(c => {
-                            if (!c.disabled) c.className = "py-2 px-1 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all hover:border-brand-500 active:scale-95 cursor-pointer";
+                            if (!c.disabled) c.className = "py-2 px-1 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold transition-all hover:border-brand-500 active:scale-95 cursor-pointer";
                         });
                         btn.className = "py-2 px-1 rounded-xl bg-brand-700 text-white border border-brand-700 text-xs font-bold shadow-md shadow-brand-700/30 scale-[1.02] cursor-pointer";
                         selectedSlot = slot;
@@ -1765,7 +1890,10 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
             });
         }
 
-        elements.inputDate.addEventListener('change', renderTimeSlots);
+        elements.inputDate.addEventListener('change', () => {
+            selectedSlot = null;
+            renderTimeSlots();
+        });
 
         // --- BOOKING SUBMISSION & AUTOMATIC TIME SLOT MARKING ---
         elements.bookingForm.addEventListener('submit', (e) => {
@@ -1776,6 +1904,11 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
             const name = elements.inputName.value.trim();
             const notes = elements.inputNotes.value.trim();
             const chosenSlot = selectedSlot;
+
+            if (!service) {
+                showToast("Por favor, selecione um procedimento disponível.");
+                return;
+            }
 
             if (!name) {
                 showToast("Por favor, digite seu nome completo.");
@@ -1793,6 +1926,9 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
             }
 
             // Verify if already blocked
+            if (!appState.blockedSlots || typeof appState.blockedSlots !== 'object') {
+                appState.blockedSlots = {};
+            }
             if (!appState.blockedSlots[dateVal]) {
                 appState.blockedSlots[dateVal] = [];
             }
@@ -1824,6 +1960,7 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
 
             // Format Brazilian Date Display (DD/MM/YYYY)
             const formattedDate = formatDateBR(dateVal);
+            const formattedDeposit = normalizeDepositAmount(appState.depositAmount) || appState.depositAmount;
 
             // Construct WhatsApp Message
             let msg = `✨ *SOLICITAÇÃO DE AGENDAMENTO* ✨\n\n`;
@@ -1834,7 +1971,7 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
             if (notes) msg += `📝 *Observação:* ${notes}\n`;
             msg += `\n🔒 *Status:* Horário reservado automaticamente no sistema!\n`;
             if (hasDeposit(appState.depositAmount)) {
-                msg += `📌 Aguardo a confirmação e os dados para pagamento do sinal (${appState.depositAmount}).`;
+                msg += `📌 Aguardo a confirmação e os dados para pagamento do sinal (${formattedDeposit}).`;
             }
 
             lastCreatedBooking = newBooking;
@@ -1847,23 +1984,25 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
             if (hasDeposit(appState.depositAmount)) {
                 if (elements.modalDepositRow) elements.modalDepositRow.classList.remove('hidden');
                 if (elements.modalPixContainer) elements.modalPixContainer.classList.remove('hidden');
-                if (elements.modalDepositAmount) elements.modalDepositAmount.textContent = appState.depositAmount;
+                if (elements.modalDepositAmount) elements.modalDepositAmount.textContent = formattedDeposit;
                 if (elements.modalWhatsAppBtnText) elements.modalWhatsAppBtnText.textContent = "Enviar Comprovante no WhatsApp";
             } else {
                 if (elements.modalDepositRow) elements.modalDepositRow.classList.add('hidden');
                 if (elements.modalPixContainer) elements.modalPixContainer.classList.add('hidden');
                 if (elements.modalWhatsAppBtnText) elements.modalWhatsAppBtnText.textContent = "Enviar Confirmação no WhatsApp";
             }
-            elements.modalPixKey.textContent = appState.pixKey;
-            elements.modalWhatsAppLink.href = `https://wa.me/${appState.whatsappNumber}?text=${encodeURIComponent(msg)}`;
+            elements.modalPixKey.textContent = appState.pixKey || '';
+            elements.modalWhatsAppLink.href = `https://wa.me/${sanitizePhone(appState.whatsappNumber)}?text=${encodeURIComponent(msg)}`;
 
             elements.bookingSuccessModal.classList.remove('hidden');
+
+            // Reset selectedSlot before saveState -> renderTimeSlots
+            selectedSlot = null;
 
             // Save state immediately (this updates storage and re-renders slots grid)
             saveState();
 
             // Reset inputs & update grid
-            selectedSlot = null;
             elements.inputNotes.value = '';
             showToast(`✨ Horário ${chosenSlot} reservado com sucesso!`);
         });
@@ -1876,21 +2015,18 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
         // Copy Booking Message
         elements.btnCopyMessageModal.addEventListener('click', () => {
             if (lastWhatsAppMsg) {
-                navigator.clipboard.writeText(lastWhatsAppMsg);
-                showToast("Mensagem copiada para a área de transferência!");
+                copyToClipboard(lastWhatsAppMsg, "Mensagem copiada para a área de transferência!");
             }
         });
 
         // Copy PIX Modal
         elements.btnCopyPixModal.addEventListener('click', () => {
-            navigator.clipboard.writeText(appState.pixKey);
-            showToast("Chave PIX copiada!");
+            copyToClipboard(appState.pixKey, "Chave PIX copiada!");
         });
 
         // --- COPY PIX UTILITY ---
         function copyPix() {
-            navigator.clipboard.writeText(appState.pixKey);
-            showToast("Chave PIX copiada para a área de transferência!");
+            copyToClipboard(appState.pixKey, "Chave PIX copiada para a área de transferência!");
         }
 
         elements.btnCopyPixHeader.addEventListener('click', copyPix);
@@ -2005,8 +2141,11 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
             appState.whatsappNumber = elements.cfgWhatsapp.value.trim() || DEFAULT_DATA.whatsappNumber;
             appState.formattedPhone = elements.cfgFormattedPhone.value.trim() || DEFAULT_DATA.formattedPhone;
             appState.pixKey = elements.cfgPixKey.value.trim() || DEFAULT_DATA.pixKey;
-            appState.depositAmount = elements.cfgDepositAmount.value.trim();
-            appState.logoUrl = elements.cfgLogoUrl.value.trim();
+            appState.depositAmount = normalizeDepositAmount(elements.cfgDepositAmount.value.trim());
+            const typedLogoUrl = elements.cfgLogoUrl.value.trim();
+            if (typedLogoUrl || !appState.logoUrl.startsWith('data:')) {
+                appState.logoUrl = typedLogoUrl;
+            }
             if (elements.inputCtaTitle) {
                 appState.ctaTitle = elements.inputCtaTitle.value.trim() || DEFAULT_DATA.ctaTitle;
             }
@@ -2088,13 +2227,14 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
         elements.btnAddService.addEventListener('click', () => {
             const name = elements.newServiceName.value.trim();
             const desc = elements.newServiceDesc.value.trim();
-            const price = parseFloat(elements.newServicePrice.value);
+            const price = parseBRLNumber(elements.newServicePrice.value);
 
-            if (!name || isNaN(price)) {
-                showToast("Por favor informe o nome e o valor do serviço.");
+            if (!name || price === null || price < 0) {
+                showToast("Por favor informe o nome e um valor válido (ex: 150,00).");
                 return;
             }
 
+            if (!Array.isArray(appState.services)) appState.services = [];
             appState.services.push({
                 id: Date.now(),
                 name,
@@ -2121,10 +2261,10 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
 
         // Alterar Foto de Serviço Cadastrado
         window.changeServicePhoto = function(serviceId, inputElement) {
-            const file = inputElement.files[0];
+            const file = inputElement && inputElement.files ? inputElement.files[0] : null;
             if (file) {
                 compressImage(file, 800, 800, 0.8).then(base64 => {
-                    const s = appState.services.find(item => item.id === serviceId);
+                    const s = (appState.services || []).find(item => String(item.id) === String(serviceId));
                     if (s) {
                         s.imageUrl = base64;
                         saveState();
@@ -2138,7 +2278,7 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
         };
 
         window.removeService = function(id) {
-            appState.services = appState.services.filter(s => s.id !== id);
+            appState.services = (appState.services || []).filter(s => String(s.id) !== String(id));
             saveState();
             showToast("Serviço removido.");
         };
@@ -2153,6 +2293,7 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
                 return;
             }
 
+            if (!Array.isArray(appState.rules)) appState.rules = [];
             appState.rules.push({
                 id: Date.now(),
                 icon,
@@ -2167,7 +2308,7 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
         });
 
         window.removeRule = function(id) {
-            appState.rules = appState.rules.filter(r => r.id !== id);
+            appState.rules = (appState.rules || []).filter(r => String(r.id) !== String(id));
             saveState();
             showToast("Regra removida.");
         };
@@ -2182,6 +2323,9 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
                 return;
             }
 
+            if (!appState.blockedSlots || typeof appState.blockedSlots !== 'object') {
+                appState.blockedSlots = {};
+            }
             if (!appState.blockedSlots[date]) {
                 appState.blockedSlots[date] = [];
             }
@@ -2196,7 +2340,7 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
         });
 
         window.removeBlockedSlot = function(date, slot) {
-            if (appState.blockedSlots[date]) {
+            if (appState.blockedSlots && appState.blockedSlots[date]) {
                 appState.blockedSlots[date] = appState.blockedSlots[date].filter(s => s !== slot);
                 if (appState.blockedSlots[date].length === 0) {
                     delete appState.blockedSlots[date];
@@ -2217,10 +2361,10 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
 
         window.cancelClientBooking = function(bookingId) {
             if (confirm("Deseja realmente cancelar este agendamento e liberar o horário na agenda?")) {
-                const booking = appState.bookings.find(b => b.id === bookingId);
+                const booking = (appState.bookings || []).find(b => String(b.id) === String(bookingId));
                 if (booking) {
                     booking.status = 'cancelado';
-                    if (appState.blockedSlots[booking.date]) {
+                    if (appState.blockedSlots && appState.blockedSlots[booking.date]) {
                         appState.blockedSlots[booking.date] = appState.blockedSlots[booking.date].filter(s => s !== booking.timeSlot);
                         if (appState.blockedSlots[booking.date].length === 0) {
                             delete appState.blockedSlots[booking.date];
@@ -2244,22 +2388,22 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
             // Client Bookings in Admin Panel
             const activeBookings = (appState.bookings || []).filter(b => b.status === 'agendado');
             if (activeBookings.length === 0) {
-                elements.adminClientBookingsList.innerHTML = `<p class="text-[11px] text-slate-400 text-center py-3 bg-slate-50 dark:bg-slate-800/40 rounded-xl">Nenhum agendamento ativo no momento.</p>`;
+                elements.adminClientBookingsList.innerHTML = `<p class="text-[11px] text-slate-400 text-center py-3 bg-slate-50 rounded-xl">Nenhum agendamento ativo no momento.</p>`;
             } else {
                 elements.adminClientBookingsList.innerHTML = activeBookings.map(b => `
-                    <div class="p-2.5 rounded-xl bg-purple-50/70 dark:bg-purple-950/30 border border-purple-100 dark:border-purple-900/40 text-xs space-y-1">
+                    <div class="p-2.5 rounded-xl bg-purple-50/70 border border-purple-100 text-xs space-y-1">
                         <div class="flex items-center justify-between">
-                            <span class="font-bold text-slate-900 dark:text-white">${b.clientName}</span>
-                            <span class="px-2 py-0.5 rounded-full bg-brand-100 dark:bg-brand-950/60 text-brand-700 dark:text-brand-300 text-[10px] font-bold">
+                            <span class="font-bold text-slate-900">${escapeHtml(b.clientName)}</span>
+                            <span class="px-2 py-0.5 rounded-full bg-brand-100 text-brand-700 text-[10px] font-bold">
                                 Marcado
                             </span>
                         </div>
-                        <p class="text-[11px] text-slate-600 dark:text-slate-300">
-                            <strong>${b.serviceName}</strong> • ${formatDateBR(b.date)} às <strong>${b.timeSlot}</strong>
+                        <p class="text-[11px] text-slate-600">
+                            <strong>${escapeHtml(b.serviceName)}</strong> • ${escapeHtml(formatDateBR(b.date))} às <strong>${escapeHtml(b.timeSlot)}</strong>
                         </p>
-                        ${b.notes ? `<p class="text-[10px] text-slate-500 italic">Obs: ${b.notes}</p>` : ''}
-                        <div class="flex items-center justify-end space-x-2 pt-1 border-t border-purple-100 dark:border-purple-900/30">
-                            <button type="button" onclick="cancelClientBooking(${b.id})" class="text-[10px] font-bold text-rose-600 hover:text-rose-700 underline cursor-pointer">
+                        ${b.notes ? `<p class="text-[10px] text-slate-500 italic">Obs: ${escapeHtml(b.notes)}</p>` : ''}
+                        <div class="flex items-center justify-end space-x-2 pt-1 border-t border-purple-100">
+                            <button type="button" data-id="${escapeHtml(b.id)}" onclick="cancelClientBooking(this.dataset.id)" class="text-[10px] font-bold text-rose-600 hover:text-rose-700 underline cursor-pointer">
                                 Cancelar & Liberar Horário
                             </button>
                         </div>
@@ -2268,58 +2412,66 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
             }
 
             // Services com Foto Miniatura e Edição
-            elements.adminServicesList.innerHTML = appState.services.map(s => `
-                <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-xs gap-2">
-                    <div class="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-900 cursor-pointer" onclick="openPhotoModal(${s.id})" title="Toque para ver a foto ampliada">
-                        <img src="${s.imageUrl || DEFAULT_SERVICE_IMG}" class="w-full h-full object-cover" onerror="this.src=SVG_LASH_PLACEHOLDER">
+            const servicesList = Array.isArray(appState.services) ? appState.services : [];
+            elements.adminServicesList.innerHTML = servicesList.map(s => `
+                <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 text-xs gap-2">
+                    <div class="relative w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-slate-200 bg-slate-100 cursor-pointer" data-id="${escapeHtml(s.id)}" onclick="openPhotoModal(this.dataset.id)" title="Toque para ver a foto ampliada">
+                        <img src="${escapeHtml(s.imageUrl || DEFAULT_SERVICE_IMG)}" alt="${escapeHtml(s.name)}" class="w-full h-full object-cover" onerror="this.src=SVG_LASH_PLACEHOLDER">
                     </div>
                     <div class="flex-1 min-w-0">
                         <div class="flex items-center space-x-1.5">
-                            <span class="font-bold text-slate-800 dark:text-slate-200 truncate">${s.name}</span>
-                            <span class="text-[10px] text-brand-600 dark:text-brand-400 font-bold shrink-0">R$ ${s.price}</span>
+                            <span class="font-bold text-slate-800 truncate">${escapeHtml(s.name)}</span>
+                            <span class="text-[10px] text-brand-600 font-bold shrink-0">${escapeHtml(formatBRL(s.price))}</span>
                         </div>
-                        <p class="text-[10px] text-slate-400 truncate">${s.desc || 'Sem descrição'}</p>
+                        <p class="text-[10px] text-slate-400 truncate">${escapeHtml(s.desc || 'Sem descrição')}</p>
                         <div class="flex items-center space-x-2 mt-1">
-                            <label for="changePhoto_${s.id}" class="text-[10px] font-bold text-brand-600 dark:text-brand-400 hover:underline cursor-pointer flex items-center space-x-1">
+                            <label for="changePhoto_${escapeHtml(s.id)}" class="text-[10px] font-bold text-brand-600 hover:underline cursor-pointer flex items-center space-x-1">
                                 <i class="fa-solid fa-camera text-[9px]"></i>
                                 <span>Alterar Foto</span>
                             </label>
-                            <input type="file" id="changePhoto_${s.id}" accept="image/*" class="hidden" onchange="changeServicePhoto(${s.id}, this)">
+                            <input type="file" id="changePhoto_${escapeHtml(s.id)}" accept="image/*" class="hidden" data-id="${escapeHtml(s.id)}" onchange="changeServicePhoto(this.dataset.id, this)">
                         </div>
                     </div>
-                    <button type="button" onclick="removeService(${s.id})" class="text-rose-500 hover:text-rose-700 p-2 cursor-pointer shrink-0" title="Excluir Serviço">
+                    <button type="button" data-id="${escapeHtml(s.id)}" onclick="removeService(this.dataset.id)" class="text-rose-500 hover:text-rose-700 p-2 cursor-pointer shrink-0" title="Excluir Serviço">
                         <i class="fa-solid fa-trash-can"></i>
                     </button>
                 </div>
             `).join('');
 
             // Rules
-            elements.adminRulesList.innerHTML = appState.rules.map(r => `
-                <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 dark:bg-slate-800 text-xs">
+            const rulesList = Array.isArray(appState.rules) ? appState.rules : [];
+            elements.adminRulesList.innerHTML = rulesList.map(r => `
+                <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 text-xs">
                     <div class="flex items-center space-x-2 truncate pr-2">
-                        <span>${r.icon}</span>
-                        <span class="text-slate-700 dark:text-slate-300 truncate">${r.text}</span>
+                        <span>${escapeHtml(r.icon || '📌')}</span>
+                        <span class="text-slate-700 truncate">${escapeHtml(r.text)}</span>
                     </div>
-                    <button type="button" onclick="removeRule(${r.id})" class="text-rose-500 hover:text-rose-700 px-2 shrink-0 cursor-pointer">
+                    <button type="button" data-id="${escapeHtml(r.id)}" onclick="removeRule(this.dataset.id)" class="text-rose-500 hover:text-rose-700 px-2 shrink-0 cursor-pointer">
                         <i class="fa-solid fa-trash-can"></i>
                     </button>
                 </div>
             `).join('');
 
-            // Time Slots Options in Blocking Select
-            elements.blockTimeSelect.innerHTML = appState.timeSlots.map(s => 
-                `<option value="${s}">${s}</option>`
+            // Time Slots Options in Blocking Select (preserva seleção atual)
+            const prevBlockSlot = elements.blockTimeSelect.value;
+            const timeSlots = Array.isArray(appState.timeSlots) ? appState.timeSlots : [];
+            elements.blockTimeSelect.innerHTML = timeSlots.map(s => 
+                `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`
             ).join('');
+            if (prevBlockSlot && timeSlots.includes(prevBlockSlot)) {
+                elements.blockTimeSelect.value = prevBlockSlot;
+            }
 
             // Blocked Slots List
             let blockedHTML = '';
-            Object.keys(appState.blockedSlots).forEach(date => {
-                const slots = appState.blockedSlots[date];
+            const blockedSlotsObj = (appState.blockedSlots && typeof appState.blockedSlots === 'object') ? appState.blockedSlots : {};
+            Object.keys(blockedSlotsObj).forEach(date => {
+                const slots = Array.isArray(blockedSlotsObj[date]) ? blockedSlotsObj[date] : [];
                 slots.forEach(slot => {
                     blockedHTML += `
-                        <div class="flex items-center justify-between p-2 rounded-xl bg-rose-50 dark:bg-rose-950/30 text-xs border border-rose-100 dark:border-rose-900/30">
-                            <span class="font-semibold text-rose-800 dark:text-rose-300">${formatDateBR(date)} às ${slot}</span>
-                            <button type="button" onclick="removeBlockedSlot('${date}', '${slot}')" class="text-rose-600 hover:text-rose-800 font-bold text-[11px] cursor-pointer">
+                        <div class="flex items-center justify-between p-2 rounded-xl bg-rose-50 text-xs border border-rose-100">
+                            <span class="font-semibold text-rose-800">${escapeHtml(formatDateBR(date))} às ${escapeHtml(slot)}</span>
+                            <button type="button" data-date="${escapeHtml(date)}" data-slot="${escapeHtml(slot)}" onclick="removeBlockedSlot(this.dataset.date, this.dataset.slot)" class="text-rose-600 hover:text-rose-800 font-bold text-[11px] cursor-pointer">
                                 Desbloquear
                             </button>
                         </div>
@@ -2336,13 +2488,13 @@ appId: "1:749294467467:web:08f5528a3885851ec1178e"
                 const isSelected = key === currentPalette;
 
                 return `
-                    <div onclick="selectPalette('${key}')" class="p-3 rounded-2xl border cursor-pointer transition-all flex items-center justify-between ${isSelected ? 'border-brand-500 bg-brand-50/50 dark:bg-brand-950/30 ring-2 ring-brand-500/30' : 'border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 hover:border-slate-300'}">
+                    <div data-palette="${escapeHtml(key)}" onclick="selectPalette(this.dataset.palette)" class="p-3 rounded-2xl border cursor-pointer transition-all flex items-center justify-between ${isSelected ? 'border-brand-500 bg-brand-50/50 ring-2 ring-brand-500/30' : 'border-slate-200 bg-white/50 hover:border-slate-300'}">
                         <div class="space-y-0.5">
                             <div class="flex items-center space-x-2">
-                                <span class="font-bold text-xs text-slate-900 dark:text-white">${p.name}</span>
+                                <span class="font-bold text-xs text-slate-900">${escapeHtml(p.name)}</span>
                                 ${isSelected ? '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-500 text-white">Ativa</span>' : ''}
                             </div>
-                            <p class="text-[10px] text-slate-500 dark:text-slate-400">${p.subtitle}</p>
+                            <p class="text-[10px] text-slate-500">${escapeHtml(p.subtitle)}</p>
                         </div>
                         <div class="flex items-center space-x-1 shrink-0">
                             <div class="w-4 h-4 rounded-full shadow-sm" style="background-color: ${p.colors[700]}"></div>
